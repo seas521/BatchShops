@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.if2c.harald.dao.ExtAttrNameValueDao" >
+  <resultMap id="BaseResultMap" type="ExtAttrNameValue" >
+    <id column="eavr_Id" property="eavrId" jdbcType="DECIMAL" />
+    <result column="goods_series_id" property="goodsSeriesId" jdbcType="DECIMAL" />
+    <result column="extends_attr_id" property="extendsAttrId" jdbcType="DECIMAL" />
+    <result column="extends_attr_value_id" property="extendsAttrValueId" jdbcType="DECIMAL" />
+    <result column="extended_attribute_category_id" property="extendedAttributeCategoryId" jdbcType="DECIMAL" />
+    <result column="category_id" property="categoryId" jdbcType="DECIMAL" />
+    <result column="extends_attr_name" property="extendsAttrName" jdbcType="VARCHAR" />
+    <result column="extends_attr_value_value" property="extendsAttrValue" jdbcType="VARCHAR" />
+  </resultMap>
+
+    <select id="qryByGoodsSeriesId" parameterType="long"  resultMap="BaseResultMap">
+        SELECT
+                goods_series_id,
+                geavr.extends_attr_id,
+                ea.name extends_attr_name,
+                eav.value extends_attr_value_value,
+                extends_attr_value_id,
+                gs.category_id category_id
+        FROM  goods_series gs
+        JOIN goods_extends_attr_value_relation geavr
+        ON geavr.goods_series_id = gs.id
+        JOIN extended_attr ea
+        ON geavr.extends_attr_id = ea.id
+        JOIN extended_attr_value eav
+        ON eav.id = geavr.extends_attr_value_id
+        where gs.id =#{id}
+    </select>
+
+    <select id="getList" parameterType="ExtAttrNameValueQuery" resultMap="BaseResultMap">
+        SELECT extended_attribute_category_id,
+            extended_attribute_value_id extends_attr_value_id,
+            ea.name extends_attr_name,
+            eav.value extends_attr_value_value ,
+            eavr.id eavr_Id,
+            category_id
+        FROM
+                extended_attribute_value_relation eavr
+                JOIN  extended_attribute_category eac ON eavr.extended_attribute_category_id=eac.id
+                JOIN extended_attribute ea  ON ea.id=eac.extended_attribute_id
+                JOIN extended_attribute_value eav ON eav.id = eavr.extended_attribute_value_id
+        <where>
+            <if test="categoryId !=null">
+                eac.category_id=#{categoryId}
+            </if>
+        </where>
+    </select>
+</mapper>

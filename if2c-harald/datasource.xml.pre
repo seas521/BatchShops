@@ -1,0 +1,63 @@
+<xml>
+	<mail host="" type="" port="" userName="" password=""></mail>
+	 <datasource name="beijing">
+		<property name="userName" value="erp_if2c"></property>
+		<property name="password" value="shzygjrmdwg"></property>
+		<property name="url" value="jdbc:mysql://111.47.240.68:3306/haixuan_product?characterEncoding=utf8"></property>
+	</datasource> 
+	
+	<homePageHost host="http://www.haixuan.pre">		
+	</homePageHost>
+
+	<mailhost userName="Noreply-service@if2c.com" passWord="f2c123456"
+		host="mail.if2c.com" port="25" >		
+	</mailhost>
+	<!-- <job name="cancelStatus" class="com.if2c.harald.job.CancelStatusJob"
+		cronExpression="0 0/3 * * * ?">
+	</job>	 -->
+	<job name="moneySaleAfterStatus" class="com.if2c.harald.job.MoneySaleAfterJob"
+		cronExpression="0/30 * * * * ?">
+	</job>
+	<job name="goodsSaleAfterStatus" class="com.if2c.harald.job.GoodsSaleAfterJob"
+		cronExpression="8/30 * * * * ?">
+	</job>
+	<job class="com.if2c.harald.job.SendCouponJob" cronExpression="0 15 * * * ?"></job>
+	<!-- 
+	<job name="deletePreview" class="com.if2c.harald.job.DeletePreview" cronExpression="0 0/51 * * * ?"></job>
+	 -->
+    <job name="sendEmail" class="com.if2c.harald.job.SendEmailJob" cronExpression="43 * * * * ?"></job>
+	<job name="promotion" class="com.if2c.harald.job.PromotionStatusJob"
+		cronExpression="3/20 * * * * ?">
+	</job>
+	<job name="promotionInventory" class="com.if2c.harald.job.PromotionInventoryJob"
+		cronExpression="10/20 * * * * ?">
+	</job>
+	<job name="coupon" class="com.if2c.harald.job.CouponJob"
+		cronExpression="0 0 0/12 * * ?">
+	</job>
+	<job name="giftcard" class="com.if2c.harald.job.GiftCardJob"
+		cronExpression="0 0 0/12 * * ?">
+	</job>
+	<!-- <job name="orderSellerEmail" class="com.if2c.harald.job.OrderSellerEmailJob"
+        cronExpression="0 0 16 * * ?">
+    </job> -->
+   <!-- <job name="updateIndexGoods" class="com.if2c.harald.job.IndexGoodsUpdateJob"
+		cronExpression="30 0/3 * * * ?">
+	</job>-->
+	<!-- <job name="smsTimer" class="com.if2c.harald.job.SmsTimerJob"
+		cronExpression="21 * * * * ?">
+	</job> --> 
+	 <!--<job name="updateCountryMuseumGoods" class="com.if2c.harald.job.CountryMuseumJob"
+		cronExpression="0 0/10 * * * ?">
+	</job>-->
+	 <job name="updateAutoGoodsPriceFreight" class="com.if2c.harald.job.AutoGoodsPriceAndFreightJob"
+		cronExpression="0 45 10 * * ?">
+	</job>
+	 <job name="updateAutoExchangeRate" class="com.if2c.harald.job.AutoUpdateExchangeRateJob"
+		cronExpression="0 30 10 * * ?">
+	</job>
+	<!-- <job name="orderSellerMsgJob" class="com.if2c.harald.job.OrderSellerMsgJob"
+		cronExpression="0 0 16 * * ?">
+	</job> -->
+	<router address="111.47.240.19"/>
+</xml>

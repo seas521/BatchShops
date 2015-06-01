@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>邮件</title>
+</head>
+<body style="padding:0px;margin:0px;">
+  <div style="width:672px;padding:0px 37px;margin:0 auto;line-height:26px;font-size:14px;font-family:'microsoft yahei','arial','Lucida Grande',tahoma,宋体;color:#000;">
+    <br/>
+    <div style="padding:0px;margin:0px;border:none;padding-top:20px;">
+	   <a href="http://www.exagoods.com" title="exagoods">
+	         <img src="http://img.haixuan.com/T1jVYTBXAT1RCvBVdK.jpg" alt="exagoods" style="border:none;padding:0px;margin:0px;"/>
+	   </a>
+	</div>
+    <br/>
+	<p style="padding:0px;margin:0px;border:none;font-weight:bold;font-size:14px;border-bottom:1px dashed #444;line-height:32px;">尊敬的${contactPerson}先生/女士：</p>
+	<br/>
+    <div style="padding:0px;margin:0px;border:none;">
+       <p style="padding:0px;margin:0px;border:none;">感谢您对亿赞普集团exagoods出口平台的关注，我们很高兴通过您提交的资质了解到了您的公司和产品，同时也希望在后面的合作中您能更充分地了解我们的平台。相信未来我们会成为彼此信任、默契的合作伙伴。</p>
+	   <br/>
+	   <p style="padding:0px;margin:0px;border:none;">&nbsp;&nbsp;&nbsp;&nbsp;您的账号密码已生成，请您妥善保管。</p>
+	   <br/>
+	   &nbsp;&nbsp;&nbsp;&nbsp; <strong>帐号：</strong><a style="color:#e00404;text-decoration:none;">${user}</a><br/>
+	   &nbsp;&nbsp;&nbsp;&nbsp; <strong>密码：</strong><a style="color:#e00404;text-decoration:none;">${password}</a><br/>
+	   &nbsp;&nbsp;&nbsp;&nbsp; <strong>商家后台地址：</strong><a style="color:#043270;text-decoration:underline;" href="http://seller.exagoods.com">http://seller.exagoods.com</a><br/>
+	   &nbsp;&nbsp;&nbsp;&nbsp; 有任何疑问，可随时咨询：<a  style="color:#023f91;text-decoration:none;" href="mailto:cs@exagoods.com">cs@exagoods.com</a><br/>
+	   <br/>顺祝商祺！ <br/><br/>
+	   <p style="text-align:right">亿赞普集团exagoods出口平台</p>
+    </div>
+   </div>
+</body>
+</html>

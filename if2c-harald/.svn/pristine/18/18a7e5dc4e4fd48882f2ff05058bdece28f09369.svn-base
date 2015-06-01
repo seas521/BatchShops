@@ -1,0 +1,7 @@
+jboss.dir=/home/f2c/sever/jboss-as-7.1.1.Final
+project.name=if2c-harald
+package.name=if2c-harald.jar
+hudson.dir=/home/f2c/hudson/jobs
+java.dir=/home/f2c/sever/jdk1.7.0_25
+config.file=datasource.xml.pre
+install.to=/home/f2c/sever/if2c-harald/pre

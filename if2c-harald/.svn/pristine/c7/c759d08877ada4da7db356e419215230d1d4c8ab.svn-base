@@ -1,0 +1,189 @@
+package com.if2c.harald.job;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import com.if2c.harald.beans.SmsMessage;
+import com.if2c.harald.migration.ReadWriteTextFile;
+import com.if2c.harald.tools.DateUtils;
+import com.if2c.sms.service.SMSService;
+import com.if2c.sms.service.SendSMSFacotry;
+import com.if2c.sms.util.Constants;
+
+/**
+ * @author 131329 zhw 2014-08-12 定时发送短信
+ */
+public class SmsTimerJob extends JobBase {
+	public SmsTimerJob() {
+		super();
+	}
+
+	Connection conn = null;
+	int twoMins = 120000;
+	List<SmsMessage> messageList = new ArrayList<SmsMessage>();
+	List<String> userMobiles = new ArrayList<String>();
+	public static final String FILE_PATH = "/www/marketMessageLogs";// 营销短信发送成功的手机号保存路径
+	public static final String FILE_NAME = "autoSendLog";// 营销短信发送成功的手机号保存文件名
+	SimpleDateFormat dateformater = new SimpleDateFormat("yyyyMMddHHmmss");
+
+	@Override
+	public void run() {
+		 try {
+		 conn = this.getConnection();
+		 messageList=getToBeSendMessage();//获取需要发送的短信
+		 userMobiles=getAllUserMobile();//获取手机号码
+		 sendSmsMessage(messageList,userMobiles);//发送短信
+		 } catch (Exception e) {
+		 e.printStackTrace();
+		 }finally{
+		 if (null != conn) {
+		 try {
+		 conn.close();
+		 } catch (SQLException e) {
+		 e.printStackTrace();
+		 }
+		 conn = null;
+		 }
+		 }
+	}
+
+	/**
+	 * by zhw 获取手机号码
+	 * 
+	 * @return
+	 */
+	private List<String> getAllUserMobile() {
+		String sql = "SELECT mobile FROM user WHERE mobile is not null and mobile !='null' and id in(4518,4520)";
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		List<String> mobils = new ArrayList<String>();
+		try {
+			if (conn != null) {
+				ps = conn.prepareStatement(sql);
+				rs = ps.executeQuery();
+				while (rs.next()) {
+					String mob = new String();
+					mob = rs.getString("mobile");
+					mobils.add(mob);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closePs(ps);
+			closeRs(rs);
+		}
+		return mobils;
+	}
+
+	/**
+	 * by zhw 发送短信并改状态
+	 * 
+	 * @param List
+	 * @param userMobiles
+	 */
+	private void sendSmsMessage(List<SmsMessage> List, List<String> userMobiles) {
+		try {
+			Pattern pattern = Pattern.compile("^(13|15|17|18)\\d{9}$");
+			if (List.size() > 0) {
+				for (SmsMessage sms : List) {
+					for (String mobil : userMobiles) {
+						Matcher matcher = pattern.matcher(mobil);
+						if (!matcher.matches()) {// 手机号格式不正确跳过
+							continue;
+						}
+						SMSService sMSService = new SMSService();
+						String result = sMSService.sendMarketingSMS(mobil,
+								sms.getContent());
+						String[] str = result.split("\\:");
+						String isSuccess = str.length > 0 ? str[0] : "fail";
+						int status = "OK".equalsIgnoreCase(isSuccess) ? 1 : -1;
+						// int status=1;
+						if (status == 1) {
+							ReadWriteTextFile.writeSendMessageFile(FILE_PATH,
+									FILE_NAME + sms.getBatch_id() + "_"
+											+ dateformater.format(new Date()),
+									sms.getBatch_id(), mobil, "YLXF");
+						}
+					}
+					updateSMSBatch(sms.getBatch_id());
+				}
+			}
+		} catch (Exception e) {
+		}
+	}
+
+	/**
+	 * by zhw 修改短信发送状态，发送时间等信息
+	 * 
+	 * @param batch_id
+	 */
+	private void updateSMSBatch(Long batch_id) {
+		String sql = "UPDATE sms_batch SET is_send=1,send_time=? WHERE id=?";
+		PreparedStatement ps = null;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, dateformater.format(new Date()));
+			ps.setLong(2, batch_id);
+			ps.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closePs(ps);
+		}
+
+	}
+
+	/**
+	 * by zhw 获取到了定时发送时间的短信
+	 * 
+	 * @return
+	 */
+	private List<SmsMessage> getToBeSendMessage() {
+		String sql = "select id,content,set_send_time from sms_batch where is_send=0 and set_send_time is not null";
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		List<SmsMessage> smsMessageList = new ArrayList<SmsMessage>();
+		try {
+			if (conn != null) {
+				ps = conn.prepareStatement(sql);
+				rs = ps.executeQuery();
+				while (rs.next()) {
+					long time = DateUtils.getMillisecond(rs
+							.getString("set_send_time"))
+							- System.currentTimeMillis();
+					System.out.print(dateformater.format(new Date()));
+					System.out.print(DateUtils.getMillisecond(rs
+							.getString("set_send_time")) + "");
+					System.out.print(System.currentTimeMillis());
+					SmsMessage sms = new SmsMessage();
+					sms.setBatch_id(rs.getLong("id"));
+					sms.setContent(rs.getString("content"));
+					sms.setSet_send_time(rs.getString("set_send_time"));
+					if (time < twoMins) {
+						smsMessageList.add(sms);
+					}
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closePs(ps);
+			closeRs(rs);
+		}
+		return smsMessageList;
+	}
+
+	public static void main(String args[]) {
+		SmsTimerJob sMSTimer = new SmsTimerJob();
+		sMSTimer.run();
+	}
+}

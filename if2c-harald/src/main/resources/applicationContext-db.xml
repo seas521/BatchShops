@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx-3.0.xsd 
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop-3.0.xsd 
+    http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"
+       default-autowire="byName" default-lazy-init="true">
+
+    <description>Spring-database配置</description>
+    <!--<context:annotation-config />-->
+    <context:component-scan base-package="com.if2c.harald">
+    </context:component-scan>
+    <util:properties id="dataSourceProps" location="classpath:jdbc.properties"/>
+      <!-- 数据源配置,使用应用内的DBCP数据库连接池 -->
+    <bean id="targetDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <!-- Connection Info -->
+        <property name="driverClassName" value="#{dataSourceProps['target.jdbc.driver']}" />
+        <property name="url" value="#{dataSourceProps['target.jdbc.url']}" />
+        <property name="username" value="#{dataSourceProps['target.jdbc.username']}" />
+        <property name="password" value="#{dataSourceProps['target.jdbc.password']}" />
+
+        <!-- Connection Pooling Info -->
+        <property name="initialSize" value="#{dataSourceProps['target.jdbc.initialSize']}" />
+        <property name="maxActive" value="#{dataSourceProps['target.jdbc.maxActive']}" />
+        <property name="maxIdle" value="#{dataSourceProps['target.jdbc.maxIdle']}" />
+        <property name="maxWait" value="#{dataSourceProps['target.jdbc.maxWait']}" />
+        <property name="poolPreparedStatements" value="#{dataSourceProps['target.jdbc.poolPreparedStatements']}" />
+        <property name="defaultAutoCommit" value="#{dataSourceProps['target.jdbc.defaultAutoCommit']}" />
+    </bean>
+     <!-- 数据源配置,使用应用内的DBCP数据库连接池 -->
+    <bean id="onlineDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <!-- Connection Info -->
+        <property name="driverClassName" value="#{dataSourceProps['online.jdbc.driver']}" />
+        <property name="url" value="#{dataSourceProps['online.jdbc.url']}" />
+        <property name="username" value="#{dataSourceProps['online.jdbc.username']}" />
+        <property name="password" value="#{dataSourceProps['online.jdbc.password']}" />
+
+        <!-- Connection Pooling Info -->
+        <property name="initialSize" value="#{dataSourceProps['online.jdbc.initialSize']}" />
+        <property name="maxActive" value="#{dataSourceProps['online.jdbc.maxActive']}" />
+        <property name="maxIdle" value="#{dataSourceProps['online.jdbc.maxIdle']}" />
+        <property name="maxWait" value="#{dataSourceProps['online.jdbc.maxWait']}" />
+        <property name="poolPreparedStatements" value="#{dataSourceProps['online.jdbc.poolPreparedStatements']}" />
+        <property name="defaultAutoCommit" value="#{dataSourceProps['online.jdbc.defaultAutoCommit']}" />
+    </bean>
+    
+     <!--more data source-->
+    <bean id="dataSource" class="com.if2c.harald.dao.DynamicDataSource">
+        <property name="defaultTargetDataSource" ref="onlineDataSource"/>
+        <property name="targetDataSources">
+            <map>
+                <entry value-ref="onlineDataSource" key="onlineDataSource"/>
+                <entry value-ref="targetDataSource" key="targetDataSource"/>
+            </map>
+        </property>
+    </bean>
+
+    <!-- 使用annotation注解方式配置事务 -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <!-- mybatis配置 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="configLocation" value="mybatis/sql-map-config.xml" />
+    </bean>
+
+    <!-- 事务管理器配置,单数据源事务 -->
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    <!-- 使用annotation注解方式配置事务 -->
+    <!--<tx:annotation-driven transaction-manager="transactionManager"/>-->
+    <!-- 通过扫描的模式，com.if2c.began.dao -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.if2c.harald.dao" />
+    </bean>
+
+
+</beans>

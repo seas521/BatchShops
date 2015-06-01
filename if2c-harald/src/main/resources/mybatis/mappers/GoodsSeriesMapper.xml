@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.if2c.harald.dao.GoodsSeriesDao" >
+  <resultMap id="BaseResultMap" type="GoodsSeries" >
+    <id column="id" property="id" jdbcType="DECIMAL" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="category_id" property="categoryId" jdbcType="DECIMAL" />
+    <result column="shop_id" property="shopId" jdbcType="DECIMAL" />
+    <result column="brand_id" property="brandId" jdbcType="DECIMAL" />
+    <result column="country_id" property="countryId" jdbcType="DECIMAL" />
+    <result column="is_on_sale" property="isOnSale" jdbcType="DECIMAL" />
+    <result column="ceate_time" property="ceateTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="is_virtual" property="isVirtual" jdbcType="DECIMAL" />
+    <result column="base_price" property="basePrice" jdbcType="DECIMAL" />
+    <result column="manufacturer_id" property="manufacturerId" jdbcType="DECIMAL" />
+    <result column="on_sale_time" property="onSaleTime" jdbcType="TIMESTAMP" />
+    <result column="offline_time" property="offlineTime" jdbcType="TIMESTAMP" />
+    <result column="comment_num" property="commentNum" jdbcType="DECIMAL" />
+    <result column="sale_num" property="saleNum" jdbcType="DECIMAL" />
+    <result column="default_goods_id" property="defaultGoodsId" jdbcType="DECIMAL" />
+    <result column="img_num" property="imgNum" jdbcType="DECIMAL" />
+    <result column="currency_id" property="currencyId" jdbcType="VARCHAR" />
+    <result column="length" property="length" jdbcType="DECIMAL" />
+    <result column="width" property="width" jdbcType="DECIMAL" />
+    <result column="height" property="height" jdbcType="DECIMAL" />
+    <result column="weight" property="weight" jdbcType="DECIMAL" />
+    <result column="advertisement" property="advertisement" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="DECIMAL" />
+    <result column="identification" property="identification" jdbcType="VARCHAR" />
+    <result column="star" property="star" jdbcType="DECIMAL" />
+    <result column="describe" property="describe" jdbcType="VARCHAR" />
+
+
+      <collection
+              column="g_id"
+              property="goodsList"
+              ofType="Goods"
+              resultMap="GoodsInfoMap">
+          <!--<collection-->
+                  <!--column="{gs_g_ganv_goods_id=gs_g_ganv_goods_id,gs_g_ganv_name=gs_g_ganv_name,gs_g_ganv_value=gs_g_ganv_value}"-->
+                  <!--property="goodsAttrNameValueList"-->
+                  <!--ofType="GoodsAttrNameValue"-->
+                  <!--resultMap="GoodsAttrNameValueMap"/>-->
+
+              </collection>
+  </resultMap>
+    <resultMap id="GoodsInfoMap" type="Goods">
+        <id column="g_id" jdbcType="DECIMAL" property="id" />
+        <id column="g_before_id" jdbcType="DECIMAL" property="beforeId" />
+        <result column="g_series_id" jdbcType="DECIMAL" property="seriesId" />
+        <result column="g_name" jdbcType="VARCHAR" property="name" />
+        <result column="g_category_id" jdbcType="DECIMAL" property="categoryId" />
+        <result column="g_brand_id" jdbcType="DECIMAL" property="brandId" />
+        <result column="g_country_id" jdbcType="DECIMAL" property="countryId" />
+        <result column="g_is_on_sale" jdbcType="DECIMAL" property="isOnSale" />
+        <result column="g_create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="g_update_time" jdbcType="TIMESTAMP" property="updateTime" />
+        <result column="g_is_virtual" jdbcType="DECIMAL" property="isVirtual" />
+        <result column="g_base_price" jdbcType="DECIMAL" property="basePrice" />
+        <result column="g_manufacturer_id" jdbcType="DECIMAL" property="manufacturerId" />
+        <result column="g_on_sale_time" jdbcType="TIMESTAMP" property="onSaleTime" />
+        <result column="g_offline_time" jdbcType="TIMESTAMP" property="offlineTime" />
+        <result column="g_comment_num" jdbcType="DECIMAL" property="commentNum" />
+        <result column="g_sale_num" jdbcType="DECIMAL" property="saleNum" />
+        <result column="g_inventory" jdbcType="DECIMAL" property="inventory" />
+        <result column="g_shop_id" jdbcType="DECIMAL" property="shopId" />
+        <result column="g_item_num" jdbcType="VARCHAR" property="itemNum" />
+        <result column="g_img" jdbcType="VARCHAR" property="img" />
+        <result column="g_status" jdbcType="DECIMAL" property="status" />
+        <result column="g_active" jdbcType="DECIMAL" property="active" />
+        <result column="g_front_inventory" jdbcType="DECIMAL" property="frontInventory" />
+        <result column="g_virtual_inventory" jdbcType="DECIMAL" property="virtualInventory" />
+        <result column="g_reality_inventory" jdbcType="DECIMAL" property="realityInventory" />
+        <result column="g_identification" jdbcType="VARCHAR" property="identification" />
+
+
+    </resultMap>
+    <resultMap id="GoodsAttrNameValueMap" type="GoodsAttrNameValue">
+        <!--<id column="gs_g_ganv_good_id" jdbcType="DECIMAL" property="id" />-->
+        <id column="goods_Id" jdbcType="DECIMAL" property="goodsId" />
+        <id column="goods_Attr_Id" jdbcType="DECIMAL" property="goodsAttrId" />
+        <id column="goods_Attr_Name" jdbcType="VARCHAR" property="goodsAttrName" />
+        <result column="goods_attr_value_value" jdbcType="VARCHAR" property="goodsAttrValueValue" />
+        <result column="goods_attr_value_id" jdbcType="DECIMAL" property="goodsAttrValueId" />
+    </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, category_id, shop_id, brand_id, country_id, is_on_sale, ceate_time, update_time,
+    is_virtual, base_price, manufacturer_id, on_sale_time, offline_time, comment_num,
+    sale_num, default_goods_id, img_num, currency_id, length, width, height, weight,
+    advertisement, status, identification, star,`describe`
+  </sql>
+    <sql id="GoodsInfo_Column_List">
+        g.id g_id,g.id g_before_id,g.name g_name, g.category_id g_category_id, g.series_id g_series_id, g.brand_id g_brand_id,
+        g.country_id  g_country_id, g.is_on_sale g_is_on_sale, g.create_time g_create_time,g.update_time g_update_time, g.is_virtual g_is_virtual,
+        g.base_price g_base_price, g.manufacturer_id g_manufacturer_id, g.on_sale_time g_on_sale_time, g.offline_time g_offline_time,g.comment_num g_comment_num,
+        g.sale_num g_sale_num, g.inventory g_inventory,  g.item_num g_item_num, g.img g_img,sb.shop_id g_shop_id,
+        g.status g_status, g.active g_active, g.identification g_identification
+    </sql>
+
+
+  <select id="qryBatchGoodSeries" parameterType="GoodsSeriesQuery" resultMap="BaseResultMap">
+      select
+       gs.id,gs.name, gs.category_id,sb.shop_id, gs.brand_id,
+      gs.country_id, gs.is_on_sale, gs.ceate_time, gs.update_time, gs.is_virtual,
+      gs.base_price, gs.manufacturer_id, gs.on_sale_time, gs.offline_time, gs.comment_num,
+      gs.sale_num, gs.default_goods_id, gs.img_num, gs.currency_id, gs.length,
+      gs.width, gs.height, gs.weight,gs.advertisement, gs.status,
+      gs.identification, gs.star,gs.describe,
+
+      <include refid="GoodsInfo_Column_List"/>
+      ,
+      gi.front_inventory g_front_inventory,
+      gi.reality_inventory g_reality_inventory,
+      gi.reality_inventory g_reality_inventory
+      from (
+          select
+            <include refid="Base_Column_List" />
+          from goods_series g where  exists (select 1 from category c where c.id=g.category_id and c.trade=#{trade})
+
+      )gs
+      join goods g  on g.series_id=gs.id
+      join shop_brand sb on sb.brand_id=g.brand_id
+      join goods_inventory gi on gi.goods_id=g.id
+
+  </select>
+
+
+
+
+    <select id="qryGoodSeries" parameterType="GoodsSeriesQuery" resultMap="BaseResultMap">
+        select
+        gs.id,gs.name, gs.category_id,sb.shop_id, gs.brand_id,
+        gs.country_id, gs.is_on_sale, gs.ceate_time, gs.update_time, gs.is_virtual,
+        gs.base_price, gs.manufacturer_id, gs.on_sale_time, gs.offline_time, gs.comment_num,
+        gs.sale_num, gs.default_goods_id, gs.img_num, gs.currency_id, gs.length,
+        gs.width, gs.height, gs.weight,gs.advertisement, gs.status,
+        gs.identification, gs.star,gs.describe,
+
+        <include refid="GoodsInfo_Column_List"/>
+        ,
+        gi.front_inventory g_front_inventory,
+        gi.reality_inventory g_reality_inventory,
+        gi.reality_inventory g_reality_inventory
+        from (
+        select
+        <include refid="Base_Column_List" />
+        from goods_series g where  exists (select 1 from category c where c.id=g.category_id and c.trade=#{trade})
+
+        )gs
+        join goods g  on g.series_id=gs.id
+        join shop_brand sb on sb.brand_id=g.brand_id
+        join goods_inventory gi on gi.goods_id=g.id
+        <where>
+            <if test="goodsSeriesId !=null">
+                gs.id=#{goodsSeriesId}
+            </if>
+            <if test="categoryId !=null">
+              and gs.category_id=#{categoryId}
+            </if>
+        </where>
+
+    </select>
+
+    <!--<selectKey resultType="java.lang.Long"  order="AFTER"  keyProperty="id">-->
+    <!--select LAST_INSERT_ID()-->
+    <!--</selectKey>-->
+    <insert id="insert" parameterType="GoodsSeries" >
+
+    insert into goods_series (id, name, category_id,
+      shop_id, brand_id, country_id,
+      is_on_sale, ceate_time, update_time,
+      is_virtual, base_price, manufacturer_id,
+      on_sale_time, offline_time, comment_num,
+      sale_num, default_goods_id, img_num,
+      currency_id, length, width,
+      height, weight, advertisement,
+      status, identification, star,
+      `describe`)
+    values (#{id}, #{name}, #{categoryId},
+      #{shopId}, #{brandId}, #{countryId},
+      #{isOnSale},#{ceateTime},#{updateTime},
+      #{isVirtual}, #{basePrice}, #{manufacturerId},
+      #{onSaleTime}, #{offlineTime}, #{commentNum},
+      #{saleNum}, #{defaultGoodsId}, #{imgNum},
+      #{currencyId}, #{length}, #{width},
+      #{height}, #{weight}, #{advertisement},
+      #{status}, #{identification}, #{star},
+      #{describe})
+  </insert>
+
+    <select id="getAcvrId" parameterType="GoodsSeriesQuery" resultType="int">
+
+        SELECT acvr.id
+        FROM attribute a
+            JOIN attribute_category ac ON a.id=ac.`attribute_id`
+            JOIN attribute_category_value_relation acvr  ON acvr.`attribute_category_id`=ac.id
+            JOIN attribute_value av ON  acvr.`attribute_value_id`=av.`id`
+        WHERE ac.`category_id`=#{categoryId} AND a.id=#{attrId}
+              AND av.id=#{attrValueId}
+
+
+    </select>
+    <select id="getAttrNameValueByGoodsId" parameterType="long" resultMap="GoodsAttrNameValueMap">
+        SELECT g.id goods_Id,
+               ga.id goods_Attr_Id,
+               ga.name goods_Attr_Name,
+               gav.value goods_attr_value_value,
+              gav.id goods_attr_value_id
+
+        FROM goods g
+            JOIN goods_goods_attr_value_relation ggavr ON ggavr.goods_id=g.id
+            JOIN goods_attr ga ON ggavr.goods_attr_id=ga.id
+            JOIN goods_attr_value gav ON gav.id=ggavr.goods_attr_value_id
+        WHERE g.id=#{id}
+
+    </select>
+</mapper>

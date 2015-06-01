@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.if2c.harald.dao.AttributeValueDao" >
+  <resultMap id="BaseResultMap" type="AttributeValue" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="value" property="value" jdbcType="VARCHAR" />
+    <result column="position" property="position" jdbcType="SMALLINT" />
+    <result column="shop_id" property="shopId" jdbcType="INTEGER" />
+    <result column="group" property="group" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="SMALLINT" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, value, position, shop_id, group, status, created_date
+  </sql>
+  <select id="getAll" parameterType="AttributeValueQuery" resultMap="BaseResultMap">
+      select id,  SUBSTRING(
+                          TRIM(`value`),
+                          LOCATE('(', TRIM(value)) + 1,
+                          LOCATE(')', TRIM(value)) - LOCATE('(', TRIM(value)) - 1
+                  ) value
+      from attribute_value
+  </select>
+</mapper>

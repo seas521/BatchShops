@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+    <typeAliases>
+        <typeAlias type="com.if2c.harald.beans.GoodsSeries" alias="GoodsSeries" />
+        <typeAlias type="com.if2c.harald.beans.query.GoodsSeriesQuery" alias="GoodsSeriesQuery" />
+
+        <typeAlias type="com.if2c.harald.beans.Goods" alias="Goods" />
+
+        <typeAlias type="com.if2c.harald.beans.Attribute" alias="Attribute" />
+        <typeAlias type="com.if2c.harald.beans.query.AttributeQuery" alias="AttributeQuery" />
+
+        <typeAlias type="com.if2c.harald.beans.AttributeValue" alias="AttributeValue" />
+        <typeAlias type="com.if2c.harald.beans.query.AttributeValueQuery" alias="AttributeValueQuery" />
+        <typeAlias type="com.if2c.harald.beans.query.AttributeCategoryValueRelationQuery" alias="AttributeCategoryValueRelationQuery" />
+
+        <typeAlias type="com.if2c.harald.beans.GoodsAttrNameValue" alias="GoodsAttrNameValue" />
+
+        <typeAlias type="com.if2c.harald.beans.ExtAttrNameValue" alias="ExtAttrNameValue" />
+        <typeAlias type="com.if2c.harald.beans.query.ExtAttrNameValueQuery" alias="ExtAttrNameValueQuery" />
+
+
+
+    </typeAliases>
+    <mappers>
+		<mapper resource="mybatis/mappers/GoodsMapper.xml"/>
+		<mapper resource="mybatis/mappers/GoodsSeriesMapper.xml"/>
+		<mapper resource="mybatis/mappers/AttributeMapper.xml"/>
+		<mapper resource="mybatis/mappers/AttributeValueMapper.xml"/>
+		<mapper resource="mybatis/mappers/GacvrMapper.xml"/>
+		<mapper resource="mybatis/mappers/GeavrMapper.xml"/>
+		<mapper resource="mybatis/mappers/AttributeCategoryValueRelationMapper.xml"/>
+		<mapper resource="mybatis/mappers/ExtAttrNameValue.xml"/>
+		<mapper resource="mybatis/mappers/GoodsInventoryMapper.xml"/>
+    </mappers>
+</configuration>

@@ -1,0 +1,75 @@
+package com.if2c.harald.job;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Date;
+
+import org.quartz.DisallowConcurrentExecution;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.if2c.harald.exception.DateIsNullException;
+import com.if2c.harald.tools.DateUtils;
+@DisallowConcurrentExecution
+public class PromotionStatusJob extends JobBase {
+
+    static final Logger log = LoggerFactory.getLogger(PromotionStatusJob.class);
+    
+	@Override
+	public void run() {
+		Connection con = null;
+		Statement stat = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			con = this.getConnection();
+			stat = con.createStatement();
+			con.setAutoCommit(false);
+			String today = DateUtils.convertDate2StringWithHMS(new Date());
+			String sql = "UPDATE promotion_rule set `status`=(" +
+					"case when DATE_FORMAT(date_from,'%Y-%m-%d %H:%i:%s')>'"+today+"' then 1 " +
+					"when DATE_FORMAT(date_from,'%Y-%m-%d %H:%i:%s')<='"+today+"' and DATE_FORMAT(date_to,'%Y-%m-%d %H:%i:%s')>='"+today+"' then 2 " +
+					"when DATE_FORMAT(date_to,'%Y-%m-%d %H:%i:%s')<'"+today+"' then 3 " +
+					"END) " +
+					"where status not in(0,4,5,6)";
+			try {
+				stat.executeUpdate(sql);
+				String sql2="select id,status from promotion_rule where status not in(0,4,5,6) order by id";
+				ps = con.prepareStatement(sql2);
+				rs = ps.executeQuery();
+				while(rs.next()){
+					long promotionRuleId=rs.getLong("id");
+					int status=rs.getInt("status");
+					// 1未开始， 2 进行中
+					String sql3="update promoting_brand_category_goods set status="+status+" where promotion_rule_id="+promotionRuleId+" and status in(1,2)";
+					stat.executeUpdate(sql3);
+					log.info("Updating the promotion_rule_id=["+promotionRuleId+"]......");
+				}
+			} catch (Exception e) {
+				error(e.getMessage(), e);
+				con.rollback();
+			}
+		} catch (SQLException | DateIsNullException e) {
+			error(e.getMessage(), e);
+		} finally {
+			if (stat != null) {
+				try {
+					stat.close();
+				} catch (SQLException e) {
+					error(e.getMessage(), e);
+				}
+			}
+			if (con != null) {
+				try {
+					con.commit();
+					con.close();
+				} catch (SQLException e) {
+					error(e.getMessage(), e);
+				}
+			}
+		}
+	}
+}

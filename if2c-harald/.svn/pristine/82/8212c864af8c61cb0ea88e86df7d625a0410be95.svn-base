@@ -1,0 +1,144 @@
+package com.if2c.harald.migration;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.if2c.harald.beans.PictureManage;
+import com.if2c.harald.beans.Seller;
+import com.if2c.harald.db.Config;
+import com.if2c.harald.mail.MailCreator;
+import com.if2c.harald.tools.Security;
+
+public class ResetUserPasswordTask extends ImageMigrationTask {
+
+	public ResetUserPasswordTask() throws FileNotFoundException, IOException {
+		super();
+	}
+
+	String teplateHtml = "resetPassword.html";
+	Map<String, String> dataMap = new HashMap<String, String>();
+
+	public void run() {
+		conn = getConnection();
+		List<Seller> userList = new ArrayList<Seller>();
+		try {
+			userList = getUserTobeReset();
+			resetPassword(userList);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (null != conn) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				conn = null;
+			}
+		}
+	}
+
+	private void resetPassword(List<Seller> userList) {
+		MailCreator mailCreator = new MailCreator(conn);
+		String sql = "UPDATE user SET password=? WHERE id=?";
+		PreparedStatement ps;
+		try {
+			if (conn != null) {
+				conn.setAutoCommit(false);
+				ps = conn.prepareStatement(sql);
+				for (Seller user : userList) {
+					String password = Security.getRandomPassword();
+					String passwordMd5 = Security.md5(password);
+					user.setPassword(password);
+					ps.setString(1, passwordMd5);
+					ps.setString(2, user.getId());
+					ps.execute();
+					dataMap.put("user", user.getAccountName());
+					dataMap.put("password", user.getPassword());
+					createEmailWithTemplate("密码重置", user.getEmail(), "",
+							"Noreply-service@haixuan.com", teplateHtml, dataMap);
+					System.out.print(user.getAccountName() + " send\n");
+				}
+				conn.commit();
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	private List<Seller> getUserTobeReset() throws SQLException {
+		List<Seller> userList = new ArrayList<Seller>();
+		String sql = "SELECT id,name,password,email FROM user WHERE email LIKE '%@izptec.com' AND email NOT  IN('luofeng@izptec.com','echo@izptec.com','lina@izptec.com','yirangyue@izptec.com','zhengxiangtao@izptec.com')";
+		// String sql =
+		// "SELECT id,name,password,email FROM user WHERE id in(2160,2152)";
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			if (conn != null) {
+				ps = conn.prepareStatement(sql);
+				rs = ps.executeQuery();
+				while (rs.next()) {
+					Seller user = new Seller();
+					user.setId(rs.getString("id"));
+					user.setAccountName(rs.getString("name"));
+					user.setEmail(rs.getString("email"));
+					user.setPassword(rs.getString("password"));
+					String tocheckPassword = Security.md5(user.getEmail()
+							.substring(0, user.getEmail().length() - 11));
+					if (tocheckPassword.equals(user.getPassword())) {
+						userList.add(user);
+					}
+				}
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			rs.close();
+			ps.close();
+		}
+		return userList;
+	}
+
+	public void createEmailWithTemplate(String subject, String to, String cc,
+			String from, String templateFile, Map<String, String> dataMap)
+			throws SQLException {
+		String insertsql = "INSERT INTO `email_queue` (`subject`, `to`,`cc`, `from`, `body`) VALUES (?,?, ?, ?, '"
+				+ Config.getTemplate(templateFile, dataMap) + "')";
+		PreparedStatement ps = conn.prepareStatement(insertsql);
+		try {
+			if (conn != null) {
+				ps.setString(1, subject);
+				ps.setString(2, to);
+				ps.setString(3, cc);
+				ps.setString(4, from);
+				ps.execute();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ps.close();
+			} catch (Exception e2) {
+				// TODO: handle exception
+			}
+		}
+	}
+
+	public static void main(String[] args) throws FileNotFoundException,
+			IOException {
+		ResetUserPasswordTask resetUserPasswordTask = new ResetUserPasswordTask();
+		resetUserPasswordTask.run();
+		System.out.equals(0);
+	}
+
+}

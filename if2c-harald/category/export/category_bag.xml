@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<CategoryRoot>
+    <Category name="Luggage &amp; Bags(箱包)" level="1" id="245">
+        <Category name="Backpacks(双肩背包)" level="2" id="245001">
+            <ExtendedAttribute name="Use（用途）" isCheck="false" id="2005666">
+                <ExtendedAttributeValue>Daily Backpack(日常背包),Normal Camping &amp; Hiking(普通野营徒步),Professional Climbing(专业登山)</ExtendedAttributeValue>
+            </ExtendedAttribute>
+            <ExtendedAttribute name="Backpack type（背包类型）" isCheck="false" id="2005667">
+                <ExtendedAttributeValue>External Frame(外架式),Internal Frame(内架式),Softback(软背)</ExtendedAttributeValue>
+            </ExtendedAttribute>
+            <ExtendedAttribute name="Suspension system（背负系统）" isCheck="false" id="2005668">
+                <ExtendedAttributeValue>Resin Mesh(树脂网状),CR(CR),TCS(TCS),Air Cushion Belt(气垫背带),Arcuate Shoulder Strap(弧形肩带),Physiological Curve Back(生理曲线背板),Nerve Bridge Technique(神经桥技术)</ExtendedAttributeValue>
+            </ExtendedAttribute>
+            <ExtendedAttribute name="Capacity(容量)" isCheck="true" id="2005669">
+                <ExtendedAttributeValue>Below 20 Litre(小于20升),20-35 Litre(20-35升),36-55 Litre(36-55升),56-75 Litre(56-75升),Above 76 Litre(大于76升)</ExtendedAttributeValue>
+            </ExtendedAttribute>
+            <ExtendedAttribute name="Waterproof cover（防水罩）" isCheck="false" id="2005670">
+                <ExtendedAttributeValue>Yes(有),No(无)</ExtendedAttributeValue>
+            </ExtendedAttribute>
+            <ExtendedAttribute name="Opening type（开口类型）" isCheck="false" id="2005671">
+                <ExtendedAttributeValue>Zipper(拉链),String(绳子),No Zipper(无拉链),Hasp(搭扣),Zipper &amp; Hasp(拉链搭扣)</ExtendedAttributeValue>
+            </ExtendedAttribute>
+            <ExtendedAttribute name="Material(材质)" isCheck="false" id="2005672">
+                <ExtendedAttributeValue>Denim(斜纹布),Nylon(尼龙),PP(PP),Cotton Fabric(棉布),Genuine Leather(真皮),PVC(PVC),PU(PU),Canvas(帆布),ABS(ABS塑料),Polyester(涤纶),Corduroy(灯心绒),Crocodile(短吻鳄皮革),Faux Suede(仿麂皮),Jacquard(提花),Linen(亚麻),Patent Leather(漆皮),Resin(树脂),Satin(色丁面料),Snakeskin(蛇皮),Straw(稻草),Suede(麂皮绒),Tapestry(挂毯),Velour(丝绒),Oxford(牛津布)</ExtendedAttributeValue>
+            </ExtendedAttribute>
+        </Category>
+        <Category name="Bag Parts &amp; Accessories(箱包配件)" level="2" id="245002">
+            <ExtendedAttribute name="Type(类型)" isCheck="false" id="2005673">
+                <ExtendedAttributeValue>Tag(吊牌),Hook(Hook),Bag Hanger(挂包钩),Belt(皮带),Buckle(皮带扣),Button(纽扣),Handle(手把),Lock(锁),Ring(戒指),Rivet(铆钉),Wheel(车轮),Zipper(拉链),Other(其它)</ExtendedAttributeValue>
+            </ExtendedAttribute>
+            <ExtendedAttribute name="Material(材质)" isCheck="false" id="2005674">
+                <ExtendedAttributeValue>Rubber(橡胶),Leather(皮革),Fabric(布),Metal(金属),Paper(纸质),Plastic(塑料)</ExtendedAttributeValue>
+            </ExtendedAttribute>
+        </Category>
+        <Category name="Briefcases(公文包)" level="2" id="245003">
+            <ExtendedAttribute name="Sex（性别）" isCheck="false" id="2005675">
+                <ExtendedAttributeValue>Women(女士),Men(男士),Unisex(男女通用)</ExtendedAttributeValue>
+            </ExtendedAttribute>
+            <ExtendedAttribute name="Style（风格）" isCheck="false" id="2005676">
+                <ExtendedAttributeValue>Sport(运动),Dress(正式),Casual(休闲),Fashion(时尚)</ExtendedAttributeValue>
+            </ExtendedAttribute>
+            <ExtendedAttribute name="Opening type（开口类型）" isCheck="false" id="2005677">
+                <ExtendedAttributeValue>Zipper(拉链),String(绳子),No Zipper(无拉链),Hasp(搭扣),Zipper &amp; Hasp(拉链搭扣)</ExtendedAttributeValue>
+            </ExtendedAttribute>
+            <ExtendedAttribute name="Material(材质)" isCheck="false" id="2005678">
+                <ExtendedAttributeValue>Denim(斜纹布),Nylon(尼龙),PP(PP),Cotton Fabric(棉布),Genuine Leather(真皮),PVC(PVC),PU(PU),Canvas(帆布),ABS(ABS塑料),Polyester(涤纶),Corduroy(灯心绒),Crocodile(短吻鳄皮革),Faux Suede(仿麂皮),Jacquard(提花),Linen(亚麻),Patent Leather(漆皮),Resin(树脂),Satin(色丁面料),Snakeskin(蛇皮),Straw(稻草),Suede(麂皮绒),Tapestry(挂毯),Velour(丝绒),Oxford(牛津布)</ExtendedAttributeValue>
+            </ExtendedAttribute>
+        </Category>
+        <Category name="Handbags(手提包)" level="2" id="245004">
+            <ExtendedAttribute name="Handbags Type(手提包类型)" isCheck="false" id="2005679">
+                <ExtendedAttributeValue>Shoulder Bags(肩包),Totes(手提袋),Wristlets(手环袋),Day Clutches(手拿包),Evening Bags(晚宴包),Other(其它)</ExtendedAttributeValue>
+            </ExtendedAttribute>
+            <ExtendedAttribute name="Style(风格)" isCheck="false" id="2005680">
+                <ExtendedAttributeValue>Dress(正式),Casual(休闲),Fashion(时尚)</ExtendedAttributeValue>
+            </ExtendedAttribute>
+            <ExtendedAttribute name="Gender(适用性别)" isCheck="false" id="2005681">
+                <ExtendedAttributeValue>Women(女士),Men(男士),Unisex(男女通用)</ExtendedAttributeValue>
+            </ExtendedAttribute>
+            <ExtendedAttribute name="Decoration(装饰)" isCheck="true" id="2005682">
+                <ExtendedAttributeValue>Beading(串珠),Bow(蝴蝶,结),Button(纽扣),Criss-Cross(交叉形),Hollow Out(镂空),Lace(蕾,丝),Embroidery(刺绣),Feathers(羽毛),Fur(皮草),Flowers(花),Chains(链,条),Rivet(铆钉),Letter(字母),Ruched(褶边),Ruffles(荷叶边),Sequined(金属片),Tassel(流苏),None(无装饰),Embossed(压花),Simulated Leather Texture(仿真皮纹理)</ExtendedAttributeValue>
+            </ExtendedAttribute>
+            <ExtendedAttribute name="Pattern Type(图案类型)" isCheck="false" id="2005683">
+                <ExtendedAttributeValue>Solid(纯色),Floral(花朵),Print(印花),Dot(圆点),Striped(条纹),Plaid(格子),Paisley(漩涡),Geometric(几何),Patchwork(拼接),Animal Prints(动物图案),Letter(字母),Character(卡通形象),Leopard(豹纹),Alligator(鳄鱼纹),Serpentine(蛇纹),Stone(石头纹),Ostrich(鸵鸟纹),Other(其它)</ExtendedAttributeValue>
+            </ExtendedAttribute>
+            <ExtendedAttribute name="Size(尺寸)" isCheck="false" id="2005684">
+                <ExtendedAttributeValue>Extra Large(超大号),Mini(小于20厘米),Small(20-30cm),Medium(30-50cm),Large(大于50cm)</ExtendedAttributeValue>
+            </ExtendedAttribute>
+            <ExtendedAttribute name="Closure Type(开口类型)" isCheck="false" id="2005685">
+                <ExtendedAttributeValue>Zipper(拉链),String(绳子),No Zipper(无拉链),Hasp(搭扣),Zipper &amp; Hasp(拉链搭扣),Velcro(魔术贴),Cover(包盖式),Open(敞口)</ExtendedAttributeValue>
+            </ExtendedAttribute>
+            <ExtendedAttribute name="Interior(内部结构)" isCheck="true" id="2005686">
+                <ExtendedAttributeValue>Interior Slot Pocket(内部隔层袋),Cell Phone Pocket(手机袋),Interior Zipper Pocket(内部拉链袋),Interior Key Chain Holder(内部钥匙环),Interior Compartment(内部间隔),Zipper Poucht(拉链小袋)</ExtendedAttributeValue>
+            </ExtendedAttribute>
+            <ExtendedAttribute name="Occasion(适用场合)" isCheck="false" id="2005687">
+                <ExtendedAttributeValue>Party(派对),Business(商务),Versatile(通用)</ExtendedAttributeValue>
+            </ExtendedAttribute>
+            <ExtendedAttribute name="Main Material(主要材质)" isCheck="false" id="2005688">
+                <ExtendedAttributeValue>Denim(斜纹布),Nylon(尼龙),Polyester(涤纶),Cotton Fabric(棉布),Genuine Leather(真皮),PVC(PVC),Canvas(帆布),ABS(ABS塑料),Corduroy(灯心绒),Crocodile(短吻鳄皮革),Faux Suede(仿麂皮),Jacquard(提花),Linen(亚麻),Patent Leather(漆皮),Satin(色丁面料),Snakeskin(蛇皮),Straw(稻草),Suede(麂皮绒),Tapestry(挂毯),Velour(丝绒),Oxford(牛津布),PU(PU),Faux Leather(仿皮)</ExtendedAttributeValue>
+            </ExtendedAttribute>
+            <ExtendedAttribute name="Hardness(硬度)" isCheck="false" id="2005689">
+                <ExtendedAttributeValue>Soft(软),Hard(硬)</ExtendedAttributeValue>
+            </ExtendedAttribute>
+            <ExtendedAttribute name="Brand Name(品牌)" isCheck="false" id="2005690"/>
+            <ExtendedAttribute name="Model Number(型号)" isCheck="false" id="2005691"/>
+            <ExtendedAttribute name="is_customized(是否可定制)" isCheck="false" id="2005692">
+                <ExtendedAttributeValue>Yes(是)</ExtendedAttributeValue>
+            </ExtendedAttribute>
+            <ExtendedAttribute name="Exterior(外袋种类)" isCheck="false" id="2005693">
+                <ExtendedAttributeValue>Silt Pocket(挖袋),Open Pocket(敞口袋),Flap Pocket(带盖袋),Solid Bag(立体袋)</ExtendedAttributeValue>
+            </ExtendedAttribute>
+        </Category>
+        <Category name="Luggage &amp; Travel Bags(旅行箱、旅行包)" level="2" id="245005">
+            <Category name="Luggage(行李箱)" level="3" id="245005001">
+                <ExtendedAttribute name="Luggage Type(行李箱类型)" isCheck="false" id="2005709">
+                    <ExtendedAttributeValue>Carry-Ons(随身拉杆箱),Luggage Sets(行李箱套装),Suitcases(手提箱),Hardside Luggage(硬壳拉杆箱),Garment Bags(服装保护袋),Rolling Luggage(滚轮拉杆箱)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="Gender(适用性别)" isCheck="false" id="2005710">
+                    <ExtendedAttributeValue>Women(女士),Men(男士),Boys(男童),Girls(女童),Unisex(男女通用)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="Luggage Size(行李箱尺寸)" isCheck="true" id="2005711">
+                    <ExtendedAttributeValue>14"(14"),15"(15"),16"(16"),17"(17"),18"(18"),19"(19"),20"(20"),21"(21"),22"(22"),23"(23"),24"(24"),25"(25"),26"(26"),27"(27"),28"(28"),29"(29"),30"(30")</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="Caster(轮脚)" isCheck="false" id="2005712">
+                    <ExtendedAttributeValue>Fixed Casters(定向轮),Spinner(万向轮)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="With Lock(是否带锁)" isCheck="false" id="2005713">
+                    <ExtendedAttributeValue>Yes(是),No(否)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="Have Drawbars(有无拉杆)" isCheck="false" id="2005714">
+                    <ExtendedAttributeValue>Yes(是),No(否)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="Main Material(主要材质)" isCheck="false" id="2005715">
+                    <ExtendedAttributeValue>Denim(斜纹布),Nylon(尼龙),Polyester(涤纶),PP(PP),Cotton Fabric(棉布),Genuine Leather(真皮),PVC(PVC),PU(PU),Canvas(帆布),Neoprene(Neoprene),Microfiber(微纤维),Faux Suede(仿麂皮),Crocodile(短吻鳄皮革),Corduroy(灯心绒),Jacquard(提花),Linen(亚麻),Patent Leather(漆皮),Snakeskin(蛇皮),Suede(麂皮绒),Tapestry(挂毯),Velour(丝绒),ABS(ABS塑料),Vinyl(乙烯基),Resin(树脂),Metallic(金属)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="is_customized(是否可定制)" isCheck="false" id="2005716">
+                    <ExtendedAttributeValue>Yes(是)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+            </Category>
+            <Category name="Travel Bags(旅行包)" level="3" id="245005002">
+                <ExtendedAttribute name="Gender(适用性别)" isCheck="false" id="2005717">
+                    <ExtendedAttributeValue>Women(女士),Men(男士)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="Travel Bag(旅行包)" isCheck="false" id="2005718">
+                    <ExtendedAttributeValue>Travel Duffle(旅行包),Travel Totes(旅行袋),Lightweight Organizers(小物件/配件包)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="Closure Type(开口类型)" isCheck="false" id="2005719">
+                    <ExtendedAttributeValue>Zipper(拉链),String(绳子),No Zipper(无拉链),Hasp(搭扣),Zipper &amp; Hasp(拉链搭扣)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="Pattern Type(图案类型)" isCheck="false" id="2005720">
+                    <ExtendedAttributeValue>Solid(纯色),Floral(花朵),Print(印花),Dot(圆点),Striped(条纹),Plaid(格子),Paisley(漩涡),Geometric(几何),Patchwork(拼接),Animal Prints(动物图案),Letter(字母),Character(卡通形象),Leopard(豹纹)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="Main Material(主要材质)" isCheck="false" id="2005721">
+                    <ExtendedAttributeValue>Denim(斜纹布),Vinyl(乙烯基),ABS(ABS塑料),Nylon(尼龙),Polyester(涤纶),PP(PP),Metallic(金属),Cotton Fabric(棉布),Genuine Leather(真皮),PVC(PVC),PU(PU),Canvas(帆布),Neoprene(Neoprene),Microfiber(微纤维),Beaded(串珠),Corduroy(灯心绒),Crocodile(短吻鳄皮革),Faux Leather(仿皮),Faux Suede(仿麂皮),Jacquard(提花),Plastic(塑料),Linen(亚麻),Patent Leather(漆皮),Resin(树脂),Satin(色丁面料),Snakeskin(蛇皮),Straw(稻草),Suede(麂皮绒),Tapestry(挂毯),Velour(丝绒)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="Hardness(硬度)" isCheck="false" id="2005722">
+                    <ExtendedAttributeValue>Soft(软),Hard(硬)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="Have Drawbars(有无拉杆)" isCheck="false" id="2005723">
+                    <ExtendedAttributeValue>Yes(有),No(无)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="Occasion(适用场合)" isCheck="false" id="2005724">
+                    <ExtendedAttributeValue>Business(商务),Versatile(通用)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="Style(风格)" isCheck="false" id="2005725">
+                    <ExtendedAttributeValue>European and American Style(欧美),Japan Style(日式),Dress(正式),Preppy Style(学院风),Fashion(时尚),Lolita Style(萝莉)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+            </Category>
+        </Category>
+        <Category name="斜挎包(Messenger Bags)" level="2" id="245006">
+            <ExtendedAttribute name="Gender(适用性别)" isCheck="false" id="2005694">
+                <ExtendedAttributeValue>Women(女士),Men(男士),Unisex(男女通用),Boys(男童),Girls(女童)</ExtendedAttributeValue>
+            </ExtendedAttribute>
+            <ExtendedAttribute name="Pattern Type(图案类型)" isCheck="false" id="2005695">
+                <ExtendedAttributeValue>Solid(纯色),Floral(花朵),Print(印花),Dot(圆点),Striped(条纹),Plaid(格子),Paisley(漩涡),Geometric(几何),Patchwork(拼接),Animal Prints(动物图案),Letter(字母),Character(卡通形象),Leopard(豹纹),Alligator(鳄鱼纹)</ExtendedAttributeValue>
+            </ExtendedAttribute>
+            <ExtendedAttribute name="Closure Type(开口类型)" isCheck="false" id="2005696">
+                <ExtendedAttributeValue>Zipper(拉链),String(绳子),No Zipper(无拉链),Hasp(搭扣),Zipper &amp; Hasp(拉链搭扣),Velcro(魔术贴),Cover(包盖式),Open(敞口),</ExtendedAttributeValue>
+            </ExtendedAttribute>
+            <ExtendedAttribute name="Main Material(主要材质)" isCheck="false" id="2005697">
+                <ExtendedAttributeValue>Denim(斜纹布),Nylon(尼龙),Polyester(涤纶),PP(PP),Cotton Fabric(棉布),Genuine Leather(真皮),PVC(PVC),PU(PU),Canvas(帆布),ABS(ABS塑料),Corduroy(灯心绒),Crocodile(短吻鳄皮革),Faux Suede(仿麂皮),Jacquard(提花),Linen(亚麻),Patent Leather(漆皮),Snakeskin(蛇皮),Straw(稻草),Suede(麂皮绒),Tapestry(挂毯),Velour(丝绒),Satin(色丁面料)</ExtendedAttributeValue>
+            </ExtendedAttribute>
+            <ExtendedAttribute name="is_customized(是否可定制)" isCheck="false" id="2005698">
+                <ExtendedAttributeValue>Yes(是)</ExtendedAttributeValue>
+            </ExtendedAttribute>
+        </Category>
+        <Category name="Other Luggage &amp; Bags(其它箱包)" level="2" id="245007">
+            <ExtendedAttribute name="Gender(适用性别)" isCheck="false" id="2005699">
+                <ExtendedAttributeValue>Women(女士),Men(男士),Unisex(男女通用),Baby Boys(男婴),Baby Girls(女婴),Boys(男童),Boys(男童)</ExtendedAttributeValue>
+            </ExtendedAttribute>
+            <ExtendedAttribute name="Occasion(适用场合)" isCheck="false" id="2005700">
+                <ExtendedAttributeValue>Party(派对),Business(商务),Versatile(通用)</ExtendedAttributeValue>
+            </ExtendedAttribute>
+            <ExtendedAttribute name="Pattern Type(图案类型)" isCheck="false" id="2005701">
+                <ExtendedAttributeValue>Solid(纯色),Floral(花朵),Print(印花),Dot(圆点),Striped(条纹),Plaid(格子),Paisley(漩涡),Geometric(几何),Patchwork(拼接),Animal Prints(动物图案),Letter(字母),Character(卡通形象),Leopard(豹纹)</ExtendedAttributeValue>
+            </ExtendedAttribute>
+            <ExtendedAttribute name="Closure Type(开口类型)" isCheck="false" id="2005702">
+                <ExtendedAttributeValue>Zipper(拉链),String(绳子),No Zipper(无拉链),Hasp(搭扣),Zipper &amp; Hasp(拉链搭扣)</ExtendedAttributeValue>
+            </ExtendedAttribute>
+            <ExtendedAttribute name="Main Material(主要材质)" isCheck="false" id="2005703">
+                <ExtendedAttributeValue>Denim(斜纹布),Nylon(尼龙),Polyester(涤纶),PP(PP),Cotton Fabric(棉布),Genuine Leather(真皮),PVC(PVC),PU(PU),Canvas(帆布),Microfiber(微纤维),Corduroy(灯心绒),Jacquard(提花),Linen(亚麻),Patent Leather(漆皮),Satin(色丁面料),Straw(稻草),Suede(麂皮绒),Tapestry(挂毯),Velour(丝绒)</ExtendedAttributeValue>
+            </ExtendedAttribute>
+            <ExtendedAttribute name="is_customized(是否可定制)" isCheck="false" id="2005704">
+                <ExtendedAttributeValue>Yes(是)</ExtendedAttributeValue>
+            </ExtendedAttribute>
+        </Category>
+        <Category name="Special Purpose Bags(特殊用途箱包)" level="2" id="245008">
+            <Category name="Chip Cases(筹码箱)" level="3" id="245008001">
+                <ExtendedAttribute name="Material(材质)" isCheck="false" id="2005726">
+                    <ExtendedAttributeValue>Aluminum(铝),ABS(ABS),Leather(皮革),EVA(EVA),PP(PP),PVC(PVC),Vinyl(Vinyl),Polyester(涤纶),Nylon(尼龙),Canvas(帆布),PU(PU),Other(其它),Wooden(木质)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="is_customized(是否可定制)" isCheck="false" id="2005727">
+                    <ExtendedAttributeValue>Yes(是)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+            </Category>
+            <Category name="Cosmetic Bags &amp; Cases(化妆包)" level="3" id="245008002">
+                <ExtendedAttribute name="Style(风格)" isCheck="false" id="2005728">
+                    <ExtendedAttributeValue>Sport(运动),Casual(休闲),Fashion(时尚)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="Pattern Type(图案类型)" isCheck="false" id="2005729">
+                    <ExtendedAttributeValue>Solid(纯色),Floral(花朵),Print(印花),Dot(圆点),Striped(条纹),Plaid(格子),Paisley(漩涡),Geometric(几何),Animal Prints(动物图案),Letter(字母),Character(卡通形象),Patchwork(拼接)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="Closure Type(开口类型)" isCheck="false" id="2005730">
+                    <ExtendedAttributeValue>Zipper(拉链),String(绳子),No Zipper(无拉链),Hasp(搭扣),Zipper &amp; Hasp(拉链搭扣)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="Main Material(主要材质)" isCheck="false" id="2005731">
+                    <ExtendedAttributeValue>Nylon(尼龙),Polyester(涤纶),PVC(PVC),PU(PU),Canvas(帆布),Metallic(金属),ABS(ABS塑料),Faux Leather(仿皮),Faux Suede(仿麂皮),Metal(金属),Wood(木头),Velour(丝绒),Snakeskin(蛇皮),Jelly, Plastic(塑料)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="is_customized(是否可定制)" isCheck="false" id="2005732">
+                    <ExtendedAttributeValue>Yes(是)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+            </Category>
+            <Category name="Instrument Bags &amp; Cases(乐器包)" level="3" id="245008003">
+                <ExtendedAttribute name="Use(适用乐器)" isCheck="false" id="2005733">
+                    <ExtendedAttributeValue>Electronic Organ(电子琴),Gitar / Bass(吉他/贝斯),Saxophone(萨克斯),Violin(小提琴),Other(其他)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="Material(材质)" isCheck="false" id="2005734">
+                    <ExtendedAttributeValue>ABS(ABS),Aluminum(铝),Leather(皮革),Nylon(尼龙),Polyester(涤纶),PU(PU),PVC(PVC),PP(PP),Other(其他)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="is_customized(是否可定制)" isCheck="false" id="2005735">
+                    <ExtendedAttributeValue>Yes(是)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+            </Category>
+            <Category name="School Bags(书包)" level="3" id="245008004">
+                <ExtendedAttribute name="Type(类型)" isCheck="false" id="2005736">
+                    <ExtendedAttributeValue>Messenger Bag(斜挎式),Backpack(背包式),Wheeled Bag(滚轮包)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="Gender(适用类别)" isCheck="false" id="2005737">
+                    <ExtendedAttributeValue>Boys(男童),Girls(女童),Unisex(男女通用)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="Closure Type(开口类型)" isCheck="false" id="2005738">
+                    <ExtendedAttributeValue>Zipper(拉链),String(绳子),No Zipper(无拉链),Hasp(搭扣),Zipper &amp; Hasp(拉链搭扣)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="Pattern Type(图案类型)" isCheck="false" id="2005739">
+                    <ExtendedAttributeValue>Solid(纯色),Floral(花朵),Print(印花),Dot(圆点),Striped(条纹),Plaid(格子),Paisley(漩涡),Geometric(几何),Patchwork(拼接),Animal Prints(动物图案),Letter(字母),Character(卡通形象),Leopard(豹纹)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="Main Material(主要材质)" isCheck="false" id="2005740">
+                    <ExtendedAttributeValue>Denim(斜纹布),ABS(ABS塑料),Nylon(尼龙),Polyester(涤纶),PP(PP),Cotton Fabric(棉布),Genuine Leather(真皮),PVC(PVC),PU(PU),Canvas(帆布),Corduroy(灯心绒),Faux Suede(仿麂皮),Jacquard(提花),Linen(亚麻),Patent Leather(漆皮),Satin(色丁面料),Snakeskin(蛇皮),Straw(稻草),Suede(麂皮绒),Tapestry(挂毯),Velour(丝绒)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="Brand Name(品牌)" isCheck="false" id="2005741">
+                    <ExtendedAttributeValue>GUESS(GUESS),Travelpro(铁搭),southcity(southcity),kingsons(金圣斯),Cathylin(凯瑟琳),J.M.D(佳美达),L.M.(lovematch),SEAFASHION(SEAFASHION),LU(Leadupon),Delor(狄洛),NUCELLE(纽芝兰),MILRY(米莱恩),RARITY(诺瑞德),Just Star(鸥时纳),coraldaisy(卡洛黛茜),Hiram beron(贝龙),MONTHAUS(万特豪狮),ESHOW(易秀),VEEVAN(VEEVAN),TIDING(潮牛),ELLE(她),A-ZA(阿扎),EMINI HOUSE(伊米妮),JONBAG(简.佰格),DANNY BEAR(丹尼熊),ARTMI(阿特密),DISNEY(迪士尼),GILLIVO(嘉里奥),LESPORTSAC(LESPORTSAC),HONGU(红谷),OPPO(欧普),ZOOLER(朱尔),WHY(WHY),Dissona(迪桑娜),GSQ(古思奇),Septwolves(七匹狼),Mexican(稻草人),WENGER(威戈),MCYS&amp;JPN(木村耀司),HANKE(汉客),BOSTANTEN(波斯丹顿),POLO(保罗),FEGER(斐格),KANGAROO KINGDOM(真澳袋鼠),DANJUE(丹爵),Haut Ton(皓顿),Moore Carden(摩尔卡登),DRIFTWOOD(漂流木),MCGOR(麦哲),OIWAS(爱华仕),MUZEE(牧之逸),BACTIM(越古),SATCHI(沙驰),Inuk(Inuk),Atlantic(海马),TIMBUK2(TIMBUK2),Voylux(Voylux),Carlton(卡尔顿),Worldtraveller(Worldtraveller),J Pulasi(杰·普拉思),STM(STM),Travel Blue(蓝旅),LA FESTIN(拉菲斯汀),HOWRU(优哈优哈),HAUTTON(皓顿),beibaobao(北包包),miyue(美约),BALANG(巴朗),YEARDAN(意尔丹),Pabojoe(派保爵),FEECANOO(菲卡奴),LINSHITASKS(LINSHITASKS),victoriacross(victoriacross),monthaus(万特豪狮),MINGJIANG(名将),Wanlima(万里马),P.Kuone(皮客优一),Marino Orlandi(马连奴奥兰迪),Blomberg(泊客·行者),Mike Disegns Mcys&amp;Tmj(木村井泓),pierre cardin(皮尔卡丹),HARRYSON(哈迪森),Thelebre(希伯莱),Other(其它)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="is_customized(是否可定制)" isCheck="false" id="2005742">
+                    <ExtendedAttributeValue>Yes(是)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+            </Category>
+            <Category name="Shopping Bags(购物袋)" level="3" id="245008005">
+                <ExtendedAttribute name="Style(风格)" isCheck="false" id="2005743">
+                    <ExtendedAttributeValue>Casual(休闲),Fashion(时尚)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="Pattern Type(图案类型)" isCheck="false" id="2005744">
+                    <ExtendedAttributeValue>Solid(纯色),Floral(花朵),Print(印花),Dot(圆点),Striped(条纹),Plaid(格子),Paisley(漩涡),Geometric(几何),Patchwork(拼接),Animal Prints(动物图案),Letter(字母),Character(卡通形象),Leopard(豹纹)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="Closure Type(开口类型)" isCheck="false" id="2005745">
+                    <ExtendedAttributeValue>Zipper(拉链),String(绳子),No Zipper(无拉链),Hasp(搭扣),Zipper &amp; Hasp(拉链搭扣)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="Main Material(主要材质)" isCheck="false" id="2005746">
+                    <ExtendedAttributeValue>Denim(斜纹布),Nylon(尼龙),Polyester(涤纶),PP(PP),Cotton Fabric(棉布),PVC(PVC),PU(PU),Canvas(帆布),Corduroy(灯心绒),Faux Leather(仿皮),Jacquard(提花),Patent Leather(漆皮),Satin(色丁面料),Snakeskin(蛇皮),Straw(稻草),Tapestry(挂毯),Velour(丝绒),ABS(ABS塑料),Paper(纸)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="Brand Name(品牌)" isCheck="false" id="2005747">
+                    <ExtendedAttributeValue>Travelpro(铁搭),southcity(southcity),kingsons(金圣斯),Cathylin(凯瑟琳),J.M.D(佳美达),L.M.(lovematch),SEAFASHION(SEAFASHION),LU(Leadupon),Delor(狄洛),NUCELLE(纽芝兰),MILRY(米莱恩),RARITY(诺瑞德),Just Star(鸥时纳),coraldaisy(卡洛黛茜),Hiram beron(贝龙),MONTHAUS(万特豪狮),ESHOW(易秀),VEEVAN(VEEVAN),TIDING(潮牛),ELLE(她),A-ZA(阿扎),EMINI HOUSE(伊米妮),JONBAG(简.佰格),DANNY BEAR(丹尼熊),ARTMI(阿特密),DISNEY(迪士尼),GILLIVO(嘉里奥),LESPORTSAC(LESPORTSAC),HONGU(红谷),OPPO(欧普),ZOOLER(朱尔),WHY(WHY),Dissona(迪桑娜),GSQ(古思奇),Septwolves(七匹狼),Mexican(稻草人),WENGER(威戈),MCYS&amp;JPN(木村耀司),HANKE(汉客),BOSTANTEN(波斯丹顿),POLO(保罗),FEGER(斐格),KANGAROO KINGDOM(真澳袋鼠),DANJUE(丹爵),Haut Ton(皓顿),Moore Carden(摩尔卡登),DRIFTWOOD(漂流木),MCGOR(麦哲),OIWAS(爱华仕),MUZEE(牧之逸),BACTIM(越古),SATCHI(沙驰),Inuk(Inuk),Atlantic(海马),TIMBUK2(TIMBUK2),Voylux(Voylux),Carlton(卡尔顿),Worldtraveller(Worldtraveller),J Pulasi(杰·普拉思),STM(STM),Travel Blue(蓝旅),LA FESTIN(拉菲斯汀),HOWRU(优哈优哈),HAUTTON(皓顿),beibaobao(北包包),miyue(美约),BALANG(巴朗),YEARDAN(意尔丹),Pabojoe(派保爵),FEECANOO(菲卡奴),LINSHITASKS(LINSHITASKS),victoriacross(victoriacross),monthaus(万特豪狮),MINGJIANG(名将),Wanlima(万里马),P.Kuone(皮客优一),Marino Orlandi(马连奴奥兰迪),Blomberg(泊客·行者),Mike Disegns Mcys&amp;Tmj(木村井泓),pierre cardin(皮尔卡丹),HARRYSON(哈迪森),Thelebre(希伯莱)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="is_customized(是否可定制)" isCheck="false" id="2005748">
+                    <ExtendedAttributeValue>Yes(是)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+            </Category>
+        </Category>
+        <Category name="Sports &amp; Leisure Bags(运动&amp;休闲包)" level="2" id="245009">
+            <Category name="Cooler Bags(冰袋)" level="3" id="245009001">
+                <ExtendedAttribute name="Matieral(材质）" isCheck="false" id="2005749">
+                    <ExtendedAttributeValue>Neoprene(合成橡胶),Aluminum Foil(铝箔),600D(600D),300D(300D),210D(210D),420D/PVC(420D/PVC),PE(PE),PP(PP),Polyester(涤纶),Nylon(尼龙),Non-woven(无纺布),Other(其它)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="Style(类型)" isCheck="false" id="2005750">
+                    <ExtendedAttributeValue>Backpack(背包式),Basket(篮子式),Chair(座椅式),Insulated(隔热),Shoulder Bag(肩背包),Thermal(保温),Trolley(滚轮式),With Radio(带收音机)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="Use（用途）" isCheck="false" id="2005751">
+                    <ExtendedAttributeValue>Cans(罐头),Food(食物),Wine(葡萄酒)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+            </Category>
+            <Category name="Gym Bags(健身包)" level="3" id="245009002">
+                <ExtendedAttribute name="Style(类型)" isCheck="false" id="2005752">
+                    <ExtendedAttributeValue>Drawstring Bags(抽绳袋),Gym Totes(健身手提袋),Sports Duffles(运动旅行袋)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="Sexo(适用性别)" isCheck="false" id="2005753">
+                    <ExtendedAttributeValue>Women(女士),Men(男士),Unisex(男女通用),Boys(男童),Girls(女童)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="open(开口类型)" isCheck="false" id="2005754">
+                    <ExtendedAttributeValue>Zipper(拉链),String(绳子),No Zipper(无拉链),Hasp(搭扣),Zipper &amp; Hasp(拉链搭扣)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="Pattern（图案类型）" isCheck="false" id="2005755">
+                    <ExtendedAttributeValue>Solid(纯色),Floral(花朵),Print(印花),Dot(圆点),Striped(条纹),Plaid(格子),Paisley(漩涡),Geometric(几何),Patchwork(拼接),Animal Prints(动物图案),Letter(字母),Character(卡通形象),Leopard(豹纹)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="Matieral(材质）" isCheck="false" id="2005756">
+                    <ExtendedAttributeValue>Denim(斜纹布),ABS(ABS塑料),Nylon(尼龙),Polyester(涤纶),PP(PP),Cotton Fabric(棉布),Genuine Leather(真皮),PVC(PVC),PU(PU),Canvas(帆布),Corduroy(灯心绒),Crocodile(短吻鳄皮革),Faux Suede(仿麂皮),Jacquard(提花),Linen(亚麻),Patent Leather(漆皮),Satin(色丁面料),Snakeskin(蛇皮),Straw(稻草),Suede(麂皮绒),Tapestry(挂毯),Velour(丝绒)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+            </Category>
+            <Category name="Lunch Bags(午餐包)" level="3" id="245009003">
+                <ExtendedAttribute name="Species（种类）" isCheck="false" id="2005757">
+                    <ExtendedAttributeValue>4 Persons(4人),2 Persons(2人),Other(其它)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="Brand（品牌）" isCheck="false" id="2005758">
+                    <ExtendedAttributeValue>GUESS(GUESS),Travelpro(铁搭),southcity(southcity),kingsons(金圣斯),Cathylin(凯瑟琳),J.M.D(佳美达),L.M.(lovematch),SEAFASHION(SEAFASHION),LU(Leadupon),Delor(狄洛),NUCELLE(纽芝兰),MILRY(米莱恩),RARITY(诺瑞德),Just Star(鸥时纳),coraldaisy(卡洛黛茜),Hiram beron(贝龙),MONTHAUS(万特豪狮),ESHOW(易秀),VEEVAN(VEEVAN),TIDING(潮牛),ELLE(她),A-ZA(阿扎),EMINI HOUSE(伊米妮),JONBAG(简.佰格),DANNY BEAR(丹尼熊),ARTMI(阿特密),DISNEY(迪士尼),GILLIVO(嘉里奥),LESPORTSAC(LESPORTSAC),HONGU(红谷),OPPO(欧普),ZOOLER(朱尔),WHY(WHY),Dissona(迪桑娜),GSQ(古思奇),Septwolves(七匹狼),Mexican(稻草人),WENGER(威戈),MCYS&amp;JPN(木村耀司),HANKE(汉客),BOSTANTEN(波斯丹顿),POLO(保罗),FEGER(斐格),KANGAROO KINGDOM(真澳袋鼠),DANJUE(丹爵),Haut Ton(皓顿),Moore Carden(摩尔卡登),DRIFTWOOD(漂流木),MCGOR(麦哲),OIWAS(爱华仕),MUZEE(牧之逸),BACTIM(越古),SATCHI(沙驰),Inuk(Inuk),Atlantic(海马),TIMBUK2(TIMBUK2),Voylux(Voylux),Carlton(卡尔顿),Worldtraveller(Worldtraveller),J Pulasi(杰·普拉思),STM(STM),Travel Blue(蓝旅),LA FESTIN(拉菲斯汀),HOWRU(优哈优哈),HAUTTON(皓顿),beibaobao(北包包),miyue(美约),BALANG(巴朗),YEARDAN(意尔丹),Pabojoe(派保爵),FEECANOO(菲卡奴),LINSHITASKS(LINSHITASKS),victoriacross(victoriacross),monthaus(万特豪狮),MINGJIANG(名将),Wanlima(万里马),P.Kuone(皮客优一),Marino Orlandi(马连奴奥兰迪),Blomberg(泊客·行者),Mike Disegns Mcys&amp;Tmj(木村井泓),pierre cardin(皮尔卡丹),HARRYSON(哈迪森),Thelebre(希伯莱),Other(其它),</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="Matieral(材质）" isCheck="false" id="2005759">
+                    <ExtendedAttributeValue>Neoprene(合成橡胶),Aluminum Foil(铝箔),600D(600D),300D(300D),210D(210D),420D/PVC(420D/PVC),PE(PE),PP(PP),Polyester(涤纶),Nylon(尼龙),Non-woven(无纺布),Other(其它)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+            </Category>
+        </Category>
+        <Category name="Travel Accessories(旅行配件)" level="2" id="245010">
+            <Category name="Lunch Bags(午餐包)" level="3" id="245010001">
+                <ExtendedAttribute name="Luggage Accessories（行李配件）" isCheck="false" id="2005760">
+                    <ExtendedAttributeValue>Luggage Carts(行李推车),Luggage Locks(箱包锁),Luggage Scales(行李秤),Luggage Straps(行李绳),Luggage Tags(行李标签),Packing Organizers(包装收纳),Passport Covers(护照封面),Passport Wallets(护照钱包),Shoe Bags(鞋袋),Travel Wallets(旅行钱包)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="Pattern（图案类型）" isCheck="false" id="2005761">
+                    <ExtendedAttributeValue>Solid(纯色),Floral(花朵),Print(印花),Dot(圆点),Striped(条纹),Plaid(格子),Paisley(漩涡),Geometric(几何),Patchwork(拼接),Animal Prints(动物图案),Letter(字母),Character(卡通形象),Leopard(豹纹)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="Matieral(材质）" isCheck="false" id="2005762">
+                    <ExtendedAttributeValue>Denim(斜纹布),Vinyl(乙烯基),ABS(ABS塑料),Nylon(尼龙),Polyester(涤纶),PP(PP),Metallic(金属),Cotton Fabric(棉布),Genuine Leather(真皮),PVC(PVC),PU(PU),Canvas(帆布),Neoprene(Neoprene),Microfiber(微纤维),Beaded(串珠),Corduroy(灯心绒),Crocodile(短吻鳄皮革),Faux Leather(仿皮),Faux Suede(仿麂皮),Jacquard(提花),Jelly, Plastic(塑料),Linen(亚麻),Patent Leather(漆皮),Resin(树脂),Satin(色丁面料),Snakeskin(蛇皮),Straw(稻草),Suede(麂皮绒),Tapestry(挂毯),Velour(丝绒),</ExtendedAttributeValue>
+                </ExtendedAttribute>
+            </Category>
+        </Category>
+        <Category name="Waist Packs(腰包)" level="2" id="245011">
+            <ExtendedAttribute name="Gender(适用性别)" isCheck="false" id="2005705">
+                <ExtendedAttributeValue>Women(女士),Men(男士),Boys(男童),Girls(女童),Unisex(男女通用)</ExtendedAttributeValue>
+            </ExtendedAttribute>
+            <ExtendedAttribute name="Style(风格)" isCheck="false" id="2005706">
+                <ExtendedAttributeValue>Sport(运动),Dress(正式),Casual(休闲),Fashion(时尚)</ExtendedAttributeValue>
+            </ExtendedAttribute>
+            <ExtendedAttribute name="Pattern Type(图案类型)" isCheck="false" id="2005707">
+                <ExtendedAttributeValue>Solid(纯色),Floral(花朵),Print(印花),Dot(圆点),Striped(条纹),Plaid(格子),Paisley(漩涡),Geometric(几何),Patchwork(拼接),Animal Prints(动物图案),Letter(字母),Character(卡通形象),Leopard(豹纹)</ExtendedAttributeValue>
+            </ExtendedAttribute>
+            <ExtendedAttribute name="Main Material(主要材质)" isCheck="false" id="2005708">
+                <ExtendedAttributeValue>Denim(斜纹布),Nylon(尼龙),Polyester(涤纶),PP(PP),Cotton Fabric(棉布),Genuine Leather(真皮),PVC(PVC),PU(PU),Canvas(帆布),ABS(ABS塑料),Corduroy(灯心绒),Crocodile(短吻鳄皮革),Faux Suede(仿麂皮),Jacquard(提花),Linen(亚麻),Patent Leather(漆皮),Satin(色丁面料),Snakeskin(蛇皮),Straw(稻草),Suede(麂皮绒),Tapestry(挂毯),Velour(丝绒),Oxford(牛津布)</ExtendedAttributeValue>
+            </ExtendedAttribute>
+        </Category>
+        <Category name="Wallets &amp; Holders(钱包&amp;卡包)" level="2" id="245012">
+            <Category name="Card &amp; ID Holders(卡包)" level="3" id="245012001">
+                <ExtendedAttribute name="Use(适用卡类)" isCheck="false" id="2005763">
+                    <ExtendedAttributeValue>Business Card(名片夹),Checkbook(支票簿),Credit Card(信用卡夹)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="Gender(适用性别)" isCheck="false" id="2005764">
+                    <ExtendedAttributeValue>Women(女士),Men(男士),Boys(男童),Girls(女童),Unisex(男女通用)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="Style(风格)" isCheck="false" id="2005765">
+                    <ExtendedAttributeValue>Sport(运动),Dress(正式),Casual(休闲),Fashion(时尚)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="Closure Type(开口类型)" isCheck="false" id="2005766">
+                    <ExtendedAttributeValue>Zipper(拉链),String(绳子),No Zipper(无拉链),Hasp(搭扣),Zipper &amp; Hasp(拉链搭扣)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="Pattern Type(图案类型)" isCheck="false" id="2005767">
+                    <ExtendedAttributeValue>Solid(纯色),Floral(花朵),Print(印花),Dot(圆点),Striped(条纹),Plaid(格子),Paisley(漩涡),Geometric(几何),Patchwork(拼接),Animal Prints(动物图案),Letter(字母),Character(卡通形象),Leopard(豹纹)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="Main Material(主要材质)" isCheck="false" id="2005768">
+                    <ExtendedAttributeValue>Denim(斜纹布),Vinyl(乙烯基),Nylon(尼龙),Polyester(涤纶),PP(PP),Cotton Fabric(棉布),Genuine Leather(真皮),PVC(PVC),PU(PU),Canvas(帆布),Microfiber(微纤维),Corduroy(灯心绒),Faux Leather(仿皮),Jacquard(提花),Linen(亚麻),Patent Leather(漆皮),Resin(树脂),Satin(色丁面料),Straw(稻草),Suede(麂皮绒),Tapestry(挂毯),Velour(丝绒),Metallic(金属)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+            </Category>
+            <Category name="Coin Purses(零钱包)" level="3" id="245012002">
+                <ExtendedAttribute name="Gender(适用性别)" isCheck="false" id="2005769">
+                    <ExtendedAttributeValue>Women(女士),Men(男士),Boys(男童),Girls(女童),Unisex(男女通用)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="Style(风格)" isCheck="false" id="2005770">
+                    <ExtendedAttributeValue>Sport(运动),Dress(正式),Casual(休闲),Fashion(时尚)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="Pattern Type(图案类型)" isCheck="false" id="2005771">
+                    <ExtendedAttributeValue>Solid(纯色),Floral(花朵),Print(印花),Dot(圆点),Striped(条纹),Plaid(格子),Paisley(漩涡),Geometric(几何),Patchwork(拼接),Animal Prints(动物图案),Letter(字母),Character(卡通形象),Leopard(豹纹)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="Closure Type(开口类型)" isCheck="false" id="2005772">
+                    <ExtendedAttributeValue>Zipper(拉链),String(绳子),No Zipper(无拉链),Hasp(搭扣),Zipper &amp; Hasp(拉链搭扣)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="Main Material(主要材质)" isCheck="false" id="2005773">
+                    <ExtendedAttributeValue>Denim(斜纹布),Vinyl(乙烯基),Nylon(尼龙),Polyester(涤纶),PP(PP),Cotton Fabric(棉布),Genuine Leather(真皮),PVC(PVC),PU(PU),Canvas(帆布),Microfiber(微纤维),Corduroy(灯心绒),Faux Leather(仿皮),Jacquard(提花),Linen(亚麻),Patent Leather(漆皮),Resin(树脂),Satin(色丁面料),Straw(稻草),Suede(麂皮绒),Tapestry(挂毯),Velour(丝绒),Metallic(金属)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+            </Category>
+            <Category name="Key Wallets(钥匙包)" level="3" id="245012003">
+                <ExtendedAttribute name="Gender(适用性别)" isCheck="false" id="2005774">
+                    <ExtendedAttributeValue>Women(女士),Men(男士),Boys(男童),Girls(女童),Unisex(男女通用)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="Style(风格)" isCheck="false" id="2005775">
+                    <ExtendedAttributeValue>Sport(运动),Dress(正式),Casual(休闲),Fashion(时尚)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="Pattern Type(图案类型)" isCheck="false" id="2005776">
+                    <ExtendedAttributeValue>Solid(纯色),Floral(花朵),Print(印花),Dot(圆点),Striped(条纹),Plaid(格子),Paisley(漩涡),Geometric(几何),Patchwork(拼接),Animal Prints(动物图案),Letter(字母),Character(卡通形象),Leopard(豹纹)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="Main Material(主要材质)" isCheck="false" id="2005777">
+                    <ExtendedAttributeValue>Denim(斜纹布),Vinyl(乙烯基),Nylon(尼龙),Polyester(涤纶),PP(PP),Cotton Fabric(棉布),Genuine Leather(真皮),PVC(PVC),PU(PU),Canvas(帆布),Microfiber(微纤维),Corduroy(灯心绒),Faux Leather(仿皮),Jacquard(提花),Linen(亚麻),Patent Leather(漆皮),Resin(树脂),Satin(色丁面料),Straw(稻草),Suede(麂皮绒),Tapestry(挂毯),Velour(丝绒),Metallic(金属)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+            </Category>
+            <Category name="Money Clips(钱夹)" level="3" id="245012004">
+                <ExtendedAttribute name="Gender(适用性别)" isCheck="false" id="2005778">
+                    <ExtendedAttributeValue>Women(女士),Men(男士),Boys(男童),Girls(女童),Unisex(男女通用)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="Pattern Type(图案类型)" isCheck="false" id="2005779">
+                    <ExtendedAttributeValue>Solid(纯色),Floral(花朵),Print(印花),Dot(圆点),Striped(条纹),Plaid(格子),Paisley(漩涡),Geometric(几何),Patchwork(拼接),Animal Prints(动物图案),Letter(字母),Character(卡通形象),Leopard(豹纹)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="Main Material(主要材质)" isCheck="false" id="2005780">
+                    <ExtendedAttributeValue>Denim(斜纹布),Vinyl(乙烯基),Nylon(尼龙),Polyester(涤纶),PP(PP),Cotton Fabric(棉布),Genuine Leather(真皮),PVC(PVC),PU(PU),Canvas(帆布),Microfiber(微纤维),Corduroy(灯心绒),Faux Leather(仿皮),Jacquard(提花),Linen(亚麻),Patent Leather(漆皮),Resin(树脂),Satin(色丁面料),Straw(稻草),Suede(麂皮绒),Tapestry(挂毯),Velour(丝绒),Metallic(金属)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+            </Category>
+            <Category name="Wallets(钱包)" level="3" id="245012005">
+                <ExtendedAttribute name="Wallets(钱包类型)" isCheck="false" id="2005781">
+                    <ExtendedAttributeValue>Clutch Wallets(夹包),Mini Wallets(迷你钱包),Organizer Wallets(收纳钱包),Standard Wallets(标准的钱包)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="Gender(适用性别)" isCheck="false" id="2005782">
+                    <ExtendedAttributeValue>Women(女士),Men(男士),Boys(男童),Girls(女童),Unisex(男女通用)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="Style(风格)" isCheck="false" id="2005783">
+                    <ExtendedAttributeValue>Sport(运动),Dress(正式),Casual(休闲),Fashion(时尚)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="Closure Type(开口类型)" isCheck="false" id="2005784">
+                    <ExtendedAttributeValue>Zipper(拉链),String(绳子),No Zipper(无拉链),Hasp(搭扣),Zipper &amp; Hasp(拉链搭扣)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="Pattern Type(图案类型)" isCheck="false" id="2005785">
+                    <ExtendedAttributeValue>Solid(纯色),Floral(花朵),Print(印花),Dot(圆点),Striped(条纹),Plaid(格子),Paisley(漩涡),Geometric(几何),Patchwork(拼接),Animal Prints(动物图案),Letter(字母),Character(卡通形象),Leopard(豹纹),Alligator(鳄鱼纹)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+                <ExtendedAttribute name="Main Material(主要材质)" isCheck="false" id="2005786">
+                    <ExtendedAttributeValue>Denim(斜纹布),Vinyl(乙烯基),Nylon(尼龙),Polyester(涤纶),PP(PP),Cotton Fabric(棉布),Genuine Leather(真皮),PVC(PVC),PU(PU),Canvas(帆布),Microfiber(微纤维),Corduroy(灯心绒),Faux Leather(仿皮),Jacquard(提花),Linen(亚麻),Patent Leather(漆皮),Resin(树脂),Satin(色丁面料),Straw(稻草),Suede(麂皮绒),Tapestry(挂毯),Velour(丝绒),Metallic(金属)</ExtendedAttributeValue>
+                </ExtendedAttribute>
+            </Category>
+        </Category>
+    </Category>
+</CategoryRoot>

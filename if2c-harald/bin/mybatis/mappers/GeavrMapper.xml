@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.if2c.harald.dao.GeavrDao" >
+  <resultMap id="BaseResultMap" type="com.if2c.harald.beans.Geavr" >
+    <id column="id" property="id" jdbcType="DECIMAL" />
+    <result column="goods_series_id" property="goodsSeriesId" jdbcType="DECIMAL" />
+    <result column="extended_attribute_value_relation_id" property="extendedAttributeValueRelationId" jdbcType="DECIMAL" />
+    <result column="status" property="status" jdbcType="DECIMAL" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, goods_series_id, extended_attribute_value_relation_id, status, created_date
+  </sql>
+
+  <insert id="insert" parameterType="com.if2c.harald.beans.Geavr" >
+      <selectKey resultType="java.lang.Long"  order="AFTER"  keyProperty="id">
+          select LAST_INSERT_ID()
+      </selectKey>
+    insert into goods_extended_attribute_value_relation ( goods_series_id, extended_attribute_value_relation_id,
+      status, created_date)
+    values (#{goodsSeriesId,jdbcType=BIGINT}, #{extendedAttributeValueRelationId,jdbcType=INTEGER},
+      #{status,jdbcType=SMALLINT},now())
+  </insert>
+
+</mapper>

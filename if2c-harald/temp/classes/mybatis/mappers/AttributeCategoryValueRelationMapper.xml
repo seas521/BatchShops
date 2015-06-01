@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.if2c.harald.dao.AttributeCategoryValueRelationDao" >
+  <resultMap id="BaseResultMap" type="com.if2c.harald.beans.AttributeCategoryValueRelation" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="attribute_category_id" property="attributeCategoryId" jdbcType="INTEGER" />
+    <result column="attribute_value_id" property="attributeValueId" jdbcType="INTEGER" />
+    <result column="categoryId" property="categoryId" jdbcType="INTEGER" />
+    <result column="attributeNameName" property="attributeNameName" jdbcType="VARCHAR" />
+    <result column="attributeValueValue" property="attributeValueValue" jdbcType="VARCHAR" />
+    <result column="position" property="position" jdbcType="SMALLINT" />
+    <result column="status" property="status" jdbcType="SMALLINT" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, attribute_category_id, attribute_value_id, position, status, created_date
+  </sql>
+  <select id="getList" parameterType="AttributeCategoryValueRelationQuery" resultMap="BaseResultMap" >
+      SELECT acvr.id,
+              c.id categoryId,
+          attribute_category_id,
+          a.id  attributeId,
+          attribute_value_id,
+        a.name attributeNameName,
+       av.value attributeValueValue
+      FROM(SELECT * FROM category c1 WHERE  NOT EXISTS (SELECT 1 FROM category c2 WHERE c2.parent_id=c1.id)) c
+          JOIN attribute_category ac ON ac.`category_id`=c.id
+          JOIN attribute a ON a.id=ac.`attribute_id`
+          JOIN attribute_category_value_relation acvr ON acvr.`attribute_category_id`=ac.id
+          JOIN attribute_value av ON  acvr.`attribute_value_id`=av.`id`
+       <where>
+           <if test="categoryId !=null">
+               c.id=#{categoryId}
+           </if>
+       </where>
+  </select>
+</mapper>

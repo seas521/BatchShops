@@ -1,0 +1,7 @@
+jboss.dir=/home/f2c/sever/jboss-as-7.1.1.Final
+project.name=if2c-harald
+package.name=if2c-harald.jar
+hudson.dir=/home/f2c/hudson/jobs
+java.dir=D:/jee/jdk1.7.0_21
+spring.env.deploy.file=env.properties.dev
+install.to=D:/jee/if2c-harald/

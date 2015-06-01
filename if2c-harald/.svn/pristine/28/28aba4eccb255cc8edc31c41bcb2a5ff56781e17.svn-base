@@ -1,0 +1,11 @@
+db.url=jdbc:mysql://10.0.16.115:3306/if2c_staging
+db.username=dev-c
+db.password=f2c!@#qwe
+tfs.rcAddr=10.0.16.104:18301
+tfs.appKey=if2c
+tfs.masterIP=10.0.16.104:18101
+tfs.nsip=10.0.16.104:18101
+tfs.appIp=127.0.0.1
+tfs.uniqueServerList=10.0.16.104:5198
+tfs.accessPath=http://10.0.16.104:8800/if2c/v1/
+router.address=10.0.2.196

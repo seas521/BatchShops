@@ -1,0 +1,14 @@
+/**
+ * 
+ */
+package com.if2c.harald.Enums;
+
+/**
+ * @author shengqiang
+ *
+ * 2014-8-13
+ */
+public enum CancelOptEnum {
+
+    CHECKORDERSTATUS,INSERTCANCELADDRESS
+}

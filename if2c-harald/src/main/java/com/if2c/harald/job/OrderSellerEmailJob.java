@@ -1,0 +1,130 @@
+package com.if2c.harald.job;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.quartz.DisallowConcurrentExecution;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.if2c.harald.Enums.DateEnums;
+import com.if2c.harald.exception.DateIsNullException;
+import com.if2c.harald.tools.DateUtils;
+
+/**
+ * 
+* @Title: OrderSellerEmail.java 
+* @Package com.if2c.harald.job 
+* @Description: (此类用于处理订单商家邮件数据) 
+* @author niexijuan
+* @date 2014年7月2日 上午11:52:24 
+* @version V1.0
+ */
+@DisallowConcurrentExecution
+public class OrderSellerEmailJob extends JobBase {
+    private Logger logger = LoggerFactory.getLogger(OrderSellerEmailJob.class);
+
+    /**
+     * 
+    * @Title: getSellerEmailByOrder 
+    * @Description: (获取待发货状态的订单商家) 
+    * @param     设定文件 
+    * @return void    返回类型 
+    * @throws 
+    * @author niexijuan
+     */
+    private void getSellerEmailByOrder(){
+        logger.info("start execute orderSellerEmailJob........");
+        Connection conn = null;
+        PreparedStatement ps = null;
+        Statement stat = null;
+        ResultSet rs = null;
+        try {
+            Calendar c = Calendar.getInstance();
+            String today = DateUtils.convertDate2StringWithHMS(c.getTime());
+            c.add(Calendar.DATE, -2);
+            String beforeToday=DateUtils.convertDate2StringWithHMS(c.getTime());
+            String sql="SELECT DATE_FORMAT( o.payment_time, '%Y-%m-%d') as date,count(DISTINCT o.id) AS count,sh.name,se.seller_country_id,se.email  FROM orders o"+
+                    " INNER JOIN order_goods_relation ogr ON ogr.order_id = o.id "+
+                    " INNER JOIN  goods g ON ogr.goods_id = g.id  "+
+                    " INNER JOIN  shop sh ON g.shop_id = sh.id "+
+                    " INNER JOIN  seller se ON sh.seller_id = se.id "+
+                    " WHERE  o.status =2 and DATE_FORMAT(o.payment_time,'%Y-%m-%d %H:%i:%s')<='"+today+"' "
+                            + "and DATE_FORMAT(o.payment_time,'%Y-%m-%d %H:%i:%s')>='"+beforeToday+"'"
+                            + " group by DATE_FORMAT( o.payment_time, '%Y-%m-%d'),se.id,sh.name,se.seller_country_id,se.email ";
+            String email=null;
+            String msg=null;
+            conn = this.getConnection();
+            stat = conn.createStatement();
+            conn.setAutoCommit(false);
+            if(null!=conn){
+                ps=conn.prepareStatement(sql);
+                rs=ps.executeQuery();
+                while(rs.next()){
+                    String dateArr[]=rs.getString("date").split("-");
+                    Map<String, String> dataMap = new HashMap<String, String>();
+                    dataMap.put("count", String.valueOf(rs.getInt("count")));
+                    dataMap.put("year",dateArr[0]);
+                    dataMap.put("day",dateArr[2]);
+                    dataMap.put("name",rs.getString("name"));
+                    dataMap.put("month",dateArr[1]);
+                    dataMap.put("enMonth",DateEnums.getEnumByKey(dateArr[1]));
+                    msg =  com.if2c.harald.db.Config.getTemplate("orderSellerEmail.html", dataMap);
+                    email=rs.getString("email");
+                    String insertSql="insert into email_queue(`status`,`subject`,`to`,`from`,`body`) "
+                          + "values(0,'海选网待发货订单提醒  Reminder for Order Shipping','"+email+"','cs@haixuan.com','"+msg+"')";
+                    stat.executeUpdate(insertSql);
+                }
+            }
+        } catch (SQLException | DateIsNullException e) {
+            e.printStackTrace();
+        } finally {
+            if(rs != null){
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException e) {
+                    error(e.getMessage(), e);
+                }
+            }
+            if (stat != null) {
+                try {
+                    stat.close();
+                } catch (SQLException e) {
+                    error(e.getMessage(), e);
+                }
+            }
+            if (conn != null) {
+                try {
+                    conn.commit();
+                    conn.close();
+                } catch (SQLException e) {
+                    error(e.getMessage(), e);
+                }
+            }
+        }
+    }
+    
+    @Override
+    public void run() {
+        getSellerEmailByOrder();
+    }
+
+    
+    public static void main(String[] args) {
+        OrderSellerEmailJob emailTest=new OrderSellerEmailJob();
+        emailTest.run();
+    }
+}

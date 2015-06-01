@@ -1,0 +1,5 @@
+<project name="if2c-harald" basedir="." default="install">
+	<property file="test-build.properties" />
+	<import file="common-build.xml"/>
+
+</project>

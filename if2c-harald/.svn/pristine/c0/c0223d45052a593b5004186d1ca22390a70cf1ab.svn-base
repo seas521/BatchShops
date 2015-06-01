@@ -1,0 +1,82 @@
+﻿<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <base target="_blank">
+</head>
+<body style=" width:100%; margin:0; padding:0; list-style: none; white-space: normal; text-align: center; ">
+<div style="font-size:12px;color:#404040;font-family:arial,'Lucida Grande',tahoma,\5b8b\4f53;font-weight:normal;">
+    <div>
+        <table cellspacing="0" cellpadding="0" style=" margin: 0 auto; border-spacing:0; border-width: 0; font-size: 12px;text-align: left;">
+            <tbody>
+            <tr style=" width: 750px; height: 87px; background: url('images/header_bg.png') repeat;">
+                <td style="width: 382px; height: 87px; padding-left: 18px;">
+                    <a href="http://www.haixuan.com" title="海选网首页"><img src="http://www.if2c.com/style/images/logo.png" width="225" height="50" alt="海选网首页" /> </a>
+                </td>
+                <td style=" width:350px;">
+                    <table  cellspacing="0" cellpadding="0" style="font-size: 12px; margin-top:60px;">
+                        <tbody>
+                        <tr>
+                            <td style="width: 104px; height: 14px; text-align: center;border-right:1px dotted #8e0c3a"><a href="http://www.haixuan.com" style=" color: #8e0c3a; text-decoration: none; font-weight: bold;" title="IF2C首页">海选首页</a> </td>
+                            <td style="width: 104px; height: 14px; text-align: center;border-right:1px dotted #8e0c3a"><a href="http://www.haixuan.com/help/shoppingprocess.jhtml" style=" color: #8e0c3a; text-decoration: none;  font-weight: bold;" title="帮助中心">帮助中心</a> </td>
+                            <td style="width: 104px; height: 14px; text-align: center;"><a href="http://app.if2c.com/" style=" color: #8e0c3a; text-decoration: none;  font-weight: bold;" title="下载客户端">下载客户端</a> </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="height: 28px; background: #8e0c3a; padding-left: 20px; color: #fff; font-weight: bold; ">优惠券发送</td>
+            </tr>
+            </tbody>
+        </table>
+        <div style="width: 100%; padding-top: 40px;">
+            <table cellspacing="0" cellpadding="0" style=" width: 580px;  margin: 0 auto; border-spacing:0; border-width: 0; font-size: 12px;color: #636363;text-align: left;">
+                <thead>
+                <tr>
+                    <td style="height: 24px;">尊敬的<span style="color:#8e0c3a ">${user}</span>，您好</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td style="height: 24px;">您的海选账户中新增 <span style="color:blue ">${coupon}</span>（在支付时直接使用，可立减现金），有效期为<span style="color:red ">${dateFrom}</span>至<span style="color:red ">${dateTo}</span>。</td>
+                </tr>
+                <tr>
+                    <td style="height: 24px;">请尽快登陆海选网站 <a href="http://www.haixuan.com">http://www.haixuan.com</a>,或客户端  <a href="http://www.haixuan.com">http://www.haixuan.com</a> 确认和使用。</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="width: 100%; padding-top: 40px;">
+            <table  cellspacing="0" cellpadding="0" style=" width: 580px;  margin: 0 auto; border-spacing:0; border-width: 0; font-size: 12px;color: #636363;text-align: left;">
+                <thead>
+               
+                </thead>
+                <tbody>
+             
+                </tbody>
+                <tfoot>
+                <br/>
+                <tr>
+                    <td style="height: 24px;">本邮件由海选网系统自动发出，请勿直接回复！ </td>
+                </tr>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <tr>
+                    <td style="height: 24px;">如有其它问题请致海选网客服，客服电话：400-696-0666，或者登录海选网 <a href="#" style="color: #636363; " onmouseover="this.style.color='#8e0c3a'" onmouseout="this.style.color='#636363'" title="IF2C首页"> http://www.haixuan.com/ </a> 与我们联系。</td>
+                </tr>
+                <tr>
+                    <td style="height: 24px;">为确保您接受的服务信息不被当做垃圾邮件处理，请将Noreply-service@haixuan.com添加为联系人。</td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+
+
+    </div>
+
+</div>
+</body>
+</html>

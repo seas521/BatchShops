@@ -1,0 +1,79 @@
+package com.if2c.harald.job;
+
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import org.apache.http.client.ClientProtocolException;
+import org.quartz.DisallowConcurrentExecution;
+@DisallowConcurrentExecution
+public class SendMessageJob extends JobBase {
+	public void run() {
+		sengMessage();
+	}
+
+	public boolean sengMessage() {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String sql = "select * from user where id in (select user_id from coupon where is_send=0)";
+		String phone;
+		String content;
+		try {
+			con = this.getConnection();
+			if (con != null) {
+				ps = con.prepareStatement(sql);
+				rs = ps.executeQuery();
+				while (rs.next()) {
+						phone = rs.getString("mobile");
+						content = "哈哈哈";
+						try {
+							System.out.println(sendSMS(phone,content));
+						} catch (ClientProtocolException e) {
+							e.printStackTrace();
+						} catch (IOException e) {
+							e.printStackTrace();
+						} catch (Exception e) {
+							e.printStackTrace();
+							continue;
+						}
+					
+				}
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				rs = null;
+			}
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				ps = null;
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				con = null;
+			}
+		}
+		return true;
+	}
+	public static void main(String[] args) {
+		SendMessageJob sm = new SendMessageJob();
+		sm.run();
+	}
+}

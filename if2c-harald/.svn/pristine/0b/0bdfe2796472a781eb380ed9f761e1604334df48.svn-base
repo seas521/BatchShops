@@ -1,0 +1,401 @@
+package com.if2c.harald.job;
+
+import java.io.IOException;
+import java.lang.reflect.AnnotatedElement;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentSkipListSet;
+
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
+import org.quartz.Job;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.alibaba.druid.pool.DruidDataSource;
+import com.if2c.harald.Enums.CancelOptEnum;
+import com.if2c.harald.Enums.CancelType;
+import com.if2c.harald.beans.OrderGoodsDetail;
+import com.if2c.harald.beans.SaleAfterInfo;
+import com.if2c.harald.db.Config;
+import com.if2c.harald.db.DBConf;
+import com.if2c.harald.db.DatasourceElement;
+import com.if2c.harald.tools.DateUtils;
+
+public abstract class JobBase implements Job {
+	private static ConcurrentSkipListSet<String> jobs = new ConcurrentSkipListSet<String>();
+	private static ConcurrentHashMap<String, DruidDataSource> conPoolMap = new ConcurrentHashMap<String, DruidDataSource>();
+	private static DruidDataSource dataSource;
+	private Logger logger = LoggerFactory.getLogger(JobBase.class);
+	private Integer repeatCount;
+	private String startDate;
+	private Integer interval;
+	private String cronExpression;
+
+	public String getCronExpression() {
+		return cronExpression;
+	}
+
+	public void setCronExpression(String cronExpression) {
+		this.cronExpression = cronExpression;
+	}
+
+	public void info(String msg) {
+		logger.info(msg);
+	}
+
+	public void error(String msg, Throwable exception) {
+		logger.error(msg, exception);
+	}
+
+	private String getClassName() {
+		return getClass().getName();
+	}
+
+	public String sendSMS(String phoneNum, String content)
+			throws ClientProtocolException, IOException {
+		String url = "http://sdkhttp.eucp.b2m.cn/sdkproxy/sendsms.action?cdkey=0SDK-EAA-0130-NDXQR&password=102579&phone="
+				+ phoneNum + "&message=" + content;
+		HttpGet httpGet = new HttpGet(url);
+		HttpClient httpClient = HttpClientBuilder.create().build();
+		String return_message = "";
+		HttpResponse httpResponse = httpClient.execute(httpGet);
+		if (httpResponse.getStatusLine().getStatusCode() == 200) {
+			return_message = EntityUtils.toString(httpResponse.getEntity());
+		}
+		return return_message;
+	}
+
+	private DruidDataSource getConnectionPool() {
+		if (dataSource == null) {
+			dataSource = new DruidDataSource();
+			Config conf = Config.getConf();
+			if (conf == null) {
+				AnnotatedElement element = this.getClass();
+				try {
+					if (element.isAnnotationPresent(DBConf.class)) {
+
+						DBConf dbConf = element.getAnnotation(DBConf.class);
+						BeanUtils.copyProperties(dataSource, dbConf);
+						dataSource.setUrl(dbConf.url());
+						dataSource.setUsername(dbConf.userName());
+						dataSource.setPassword(dbConf.password());
+					}
+					conPoolMap.put(getClassName(), dataSource);
+				} catch (Exception exception) {
+					logger.error(exception.getMessage());
+				}
+			} else {
+				DatasourceElement de = Config.getConf().getDatasourceElement()
+						.get(0);
+				dataSource.setUrl(de.getProMap().get("url"));
+				dataSource.setUsername(de.getProMap().get("userName"));
+				dataSource.setPassword(de.getProMap().get("password"));
+			}
+
+		}
+		return dataSource;
+	}
+
+	public Connection getConnection() throws SQLException {
+		return getConnectionPool().getConnection();
+	}
+
+	@Override
+	public void execute(JobExecutionContext context)
+			throws JobExecutionException {
+		UseCustomAnnotation.readAnnotation(this.getClass());
+		if (!jobs.contains(getClassName())) {
+			jobs.add(getClassName());
+			info(getClassName() + "--->上次执行时间: "
+					+ context.getPreviousFireTime());
+			info(getClassName() + "--->当前打执行时间: " + context.getFireTime());
+			info(getClassName() + "--->下次执行时间: " + context.getNextFireTime());
+			info(getClassName() + "--->开始执行");
+			run();
+			info(getClassName() + "--->执行完毕");
+			jobs.remove(getClassName());
+		} else {
+			info(getClassName() + "--->新任务等待");
+		}
+	}
+
+	public abstract void run();
+
+	protected void opt(String sql, int status) throws SQLException {
+		opt(sql, status, 0, null);
+	}
+
+	protected void opt(String sql, int status, CancelOptEnum optEnum)
+			throws SQLException {
+		opt(sql, status, 0, optEnum);
+	}
+
+	protected void opt(String sql, int status, int saleAfterType)
+			throws SQLException {
+		opt(sql, status, saleAfterType, null);
+	}
+
+	protected final void opt(String sql, int status, int saleAfterType,
+			CancelOptEnum optEnum) throws SQLException {
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		Connection con = this.getConnection();
+		if (con == null) {
+			error("获得的Connection==null", new NullPointerException());
+			return;
+		}
+		Statement stat = con.createStatement();
+		con.setAutoCommit(false);
+		String now;
+		try {
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+			con.setAutoCommit(false);
+			while (rs.next()) {
+				long id = rs.getLong("id");
+				long orderId = rs.getLong("order_id");
+				now = DateUtils.convertDate2StringWithHMS(new Date());
+				String cancelUpdateSql = "update sale_after_info set auditing_status="
+						+ status + " where id=" + id;
+				stat.executeUpdate(cancelUpdateSql);
+				String opInfo = "";
+				String sellerId = null;
+				String addressId = null;
+				if (optEnum == CancelOptEnum.INSERTCANCELADDRESS) {
+					// 当前订单的商家默认退货地址
+					String sql1 = "SELECT sa.id,sa.province,sa.city,sa.area,sa.address,sa.consignor,sa.phone,sa.zip_code,sa.seller_id from orders o,shipping_address sa where sa.shop_id=o.shop_id and sa.defaults1=1 and o.id="
+							+ orderId;
+					Connection con1 = this.getConnection();
+					PreparedStatement ps1 = con1.prepareStatement(sql1);
+					ResultSet rs1 = ps1.executeQuery();
+					con1.setAutoCommit(false);
+					while (rs1.next()) {
+						StringBuilder sd = new StringBuilder();
+						sd.append(rs1.getString("province")).append(" ")
+								.append(rs1.getString("city")).append(" ")
+								.append(rs1.getString("area")).append(" ")
+								.append(rs1.getString("address")).append(" ")
+								.append(rs1.getString("zip_code")).append(" ")
+								.append(rs1.getString("consignor")).append(" ")
+								.append(rs1.getString("phone")).append(" ");
+						opInfo = "退货地址:" + sd.toString();
+						sellerId = rs1.getString("seller_id");
+						addressId = rs1.getString("id");
+					}
+				}
+				// 默认操作人是商家
+				String opUser = "1";
+				// 如果是需要用户确认收货，操作人是用户
+				if (optEnum == CancelOptEnum.CHECKORDERSTATUS) {
+					opUser = "2";
+				}
+				String cancelInsertSql = "insert into sale_after_info_history(sale_after_info_id,auditing_status,op_info,op_desc,op_user,created_time,status,saller_id,address_id,is_auto) "
+						+ "values("
+						+ id
+						+ ","
+						+ status
+						+ ",'"
+						+ opInfo
+						+ "','','"
+						+ opUser
+						+ "','"
+						+ now
+						+ "',1,"
+						+ sellerId
+						+ "," + addressId + ",1)";
+				stat.executeUpdate(cancelInsertSql);
+				if (optEnum == CancelOptEnum.CHECKORDERSTATUS) {
+					String sql1 = "select count(distinct goods_id) as count1 from order_goods_relation where order_id="
+							+ orderId;
+					Connection con1 = this.getConnection();
+					PreparedStatement ps1 = con1.prepareStatement(sql1);
+					ResultSet rs1 = ps1.executeQuery();
+					con1.setAutoCommit(false);
+					int count1 = 0;
+					while (rs1.next()) {
+						count1 = rs1.getInt("count1");
+					}
+					// 订单下只有1种商品参加售后
+					if (count1 == 1) {
+						String sql3 = "select quantity as count3 from sale_after_info where id="
+								+ id;
+						Connection con3 = this.getConnection();
+						PreparedStatement ps3 = con3.prepareStatement(sql3);
+						ResultSet rs3 = ps3.executeQuery();
+						con3.setAutoCommit(false);
+						int count3 = 0;
+						while (rs3.next()) {
+							count3 = rs3.getInt("count3");
+						}
+						// 当前订单下商品都申请了售后，则将订单状态变为交易关闭
+						if (count1 == count3) {
+							String updateOrderSql = "update orders set status=8 where id="
+									+ orderId;
+							stat.executeUpdate(updateOrderSql);
+						}
+					}
+					// 订单下有多个sku申请了售后
+					if (count1 > 1) {
+						String sql3 = "select distinct goods_id,goods_num from order_goods_relation where order_id="
+								+ orderId;
+						Connection con3 = this.getConnection();
+						PreparedStatement ps3 = con3.prepareStatement(sql3);
+						ResultSet rs3 = ps3.executeQuery();
+						con3.setAutoCommit(false);
+						List<OrderGoodsDetail> orderGoodsList = new ArrayList<OrderGoodsDetail>();
+						while (rs3.next()) {
+							OrderGoodsDetail goods = new OrderGoodsDetail();
+							goods.setGoodsId(rs3.getLong("goods_id"));
+							goods.setGoodsNumber(rs3.getInt("goods_num"));
+							orderGoodsList.add(goods);
+						}
+						String sql4 = "select distinct goods_id,quantity from sale_after_info where order_id="
+								+ orderId;
+						Connection con4 = this.getConnection();
+						PreparedStatement ps4 = con4.prepareStatement(sql4);
+						ResultSet rs4 = ps4.executeQuery();
+						con3.setAutoCommit(false);
+						List<SaleAfterInfo> cancelGoodsList = new ArrayList<SaleAfterInfo>();
+						while (rs4.next()) {
+							SaleAfterInfo info = new SaleAfterInfo();
+							info.setGoodsId(rs4.getLong("goods_id"));
+							info.setGoodsNumber(rs4.getInt("quantity"));
+							cancelGoodsList.add(info);
+						}
+
+						boolean checkIsAllCancel = false;
+						for (OrderGoodsDetail orderGoods : orderGoodsList) {
+							for (SaleAfterInfo cancelGoods : cancelGoodsList) {
+								if (orderGoods.getGoodsId().longValue() == cancelGoods
+										.getGoodsId().longValue()) {
+									// 当前sku的购买数量==申请退货数量
+									if (orderGoods.getGoodsNumber().intValue() == cancelGoods
+											.getGoodsNumber().intValue()) {
+										checkIsAllCancel = true;
+									} else {
+										checkIsAllCancel = false;
+										break;
+									}
+								}
+							}
+						}
+						if (checkIsAllCancel) {
+							String updateOrderSql = "update orders set status=8 where id="
+									+ orderId;
+							stat.executeUpdate(updateOrderSql);
+						}
+
+					}
+				}
+				// 申请退款则订单状态改为冻结
+				if (saleAfterType == CancelType.CANCELMONEY.getSaleCode()) {
+					String updateOrderSql = "update orders set status=6 where id="
+							+ orderId;
+					stat.executeUpdate(updateOrderSql);
+				}
+			}
+		} catch (Exception e) {
+			error(e.getMessage(), e);
+			con.rollback();
+		} finally {
+			con.commit();
+			if (stat != null) {
+				try {
+					stat.close();
+				} catch (SQLException e) {
+					error(e.getMessage(), e);
+				}
+			}
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					error(e.getMessage(), e);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					error(e.getMessage(), e);
+				}
+			}
+		}
+	}
+
+	public void closeConnection(Connection conn) {
+		if (null != conn) {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			conn = null;
+		}
+	}
+
+	public void closePs(PreparedStatement ps) {
+		if (null != ps) {
+			try {
+				ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			ps = null;
+		}
+	}
+
+	public void closeRs(ResultSet rs) {
+		if (null != rs) {
+			try {
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			rs = null;
+		}
+	}
+
+	public Integer getInterval() {
+		return interval;
+	}
+
+	public void setInterval(Integer interval) {
+		this.interval = interval;
+	}
+
+	public void setRepeatCount(Integer repeatCount) {
+		this.repeatCount = repeatCount;
+	}
+
+	public String getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public Integer getRepeatCount() {
+		return repeatCount;
+	}
+
+	public void setRepeatCount(int repeatCount) {
+		this.repeatCount = repeatCount;
+	}
+}

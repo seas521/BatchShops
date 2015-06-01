@@ -1,0 +1,317 @@
+package com.if2c.harald.job;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import com.if2c.harald.db.Config;
+import com.if2c.harald.mail.MailCreator;
+import com.if2c.harald.tools.DateUtils;
+
+public class CountryMuseumJob extends JobBase {
+	
+	String hostName=Config.getConf().getHomePageHost().getHost();
+	Map<String, String> dataMap = new HashMap<String, String>();
+	String to="zhengfei@izptec.com;caijianmin@izptec.com;liuxiaonan@izptec.com";//收件人
+	String cc="huanglu@izptec.com;wucunjie@izptec.com";//邮件抄送人
+	//String to="zhangying1@izptec.com;wanghuaxiao@izptec.com;wanghongying@izptec.com";//收件人
+	//String cc="dengruoyu@izptec.com";//邮件抄送人
+	String teplateHtml="countryMuseumWarningEmail.html";
+	String teplateGoodsHtml="countryMuseumEmail.html";
+	String customerHtml="customerWarningEmail.html";
+	String customerGoodsHtml="customerEmail.html";
+	String from="Noreply-service@haixuan.com";
+	@Override
+	public void run(){
+		if(hostName.equalsIgnoreCase("http://www.haixuan.com")){
+			to="zhangying1@izptec.com;wanghuaxiao@izptec.com;wanghongying@izptec.com";//收件人
+			cc="dengruoyu@izptec.com";//邮件抄送人
+		}
+		Connection conn=null;
+		try {
+			conn = this.getConnection();
+			conn.setAutoCommit(false);
+			dealCountryMuseumGoods(conn);//处理国家馆商品
+			dealcustomerGoods(conn);//处理团购页商品
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			if (null != conn) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				conn = null;
+			}
+		}
+	}
+	private void dealcustomerGoods(Connection conn)  throws SQLException {
+		PreparedStatement sqlGoodsPrepare=null;
+		try{
+		String sqlcustomerGoods="select distinct picture_id,goods_series_id,is_send,start_time from customers_manage  where goods_series_id is not null and goods_series_id !=''";
+		String sqlcustomerGoodsCount="select sum(pbc.inventory) from promoting_brand_category_goods pbc"
+				 +" left join promotion_rule pr on  pr.`date_to`>now() and pbc.promotion_rule_id=pr.id  and pr.status in (1,2) and pr.`type`=3"
+				  +" where pbc.status in (1,2) and pbc.goods_series_id=? ";
+		String sqlcustomerGoodsStatus="update customers_manage set status=?,is_send=? where goods_series_id=? and picture_id=?";
+		
+		 sqlGoodsPrepare = conn.prepareStatement(sqlcustomerGoods);
+		ResultSet sqlGoodsResult = sqlGoodsPrepare.executeQuery();
+		while (sqlGoodsResult.next()) {
+			try {
+				MailCreator mailCreator= new MailCreator(conn);
+			dataMap.put("position", sqlGoodsResult.getString("picture_id"));
+			int count=goodsCount(sqlGoodsResult.getString("goods_series_id"),sqlcustomerGoodsCount,conn);
+			
+			
+			if(WithinTime(sqlGoodsResult.getString("start_time")))
+			{
+				 dataMap.put("title", "报警");
+            	 dataMap.put("Content", "活动已开始。请运营人员尽快对商品进行更新");
+            	 dataMap.put("goods", "商品");
+            	
+            	 goodsCustomerUpdate("0",1,sqlGoodsResult.getString("goods_series_id"),sqlGoodsResult.getString("picture_id"),
+            			 sqlcustomerGoodsStatus,conn);
+            	 if(sqlGoodsResult.getInt("is_send")==0){
+                	 try {
+                		 mailCreator.createEmailWithTemplate("商品替换预报警", to,cc, from, customerGoodsHtml, dataMap);
+                	 } catch (SQLException e) {
+             			e.printStackTrace();
+             		}
+                 }
+			}
+			
+			else{
+			 if(count==1)
+             {  
+            	 dataMap.put("title", "预报警");
+            	 dataMap.put("Content", "库存过低，将要无法销售。需要运营人员尽快进行补充、替换");
+            	 dataMap.put("goods", "商品");
+            	
+            	 goodsCustomerUpdate("1",1,sqlGoodsResult.getString("goods_series_id"),sqlGoodsResult.getString("picture_id"),
+            			 sqlcustomerGoodsStatus,conn);
+            	 if(sqlGoodsResult.getInt("is_send")==0){
+                	 try {
+                		 mailCreator.createEmailWithTemplate("商品替换预报警", to,cc, from, customerHtml, dataMap);
+                	 } catch (SQLException e) {
+             			e.printStackTrace();
+             		}
+                 }
+             }
+			 if(count==0)
+             {  
+            	 dataMap.put("title", "报警");
+            	 dataMap.put("Content", "已无货（下架）。请运营人员尽快对商品进行更新");
+            	 dataMap.put("goods", "商品");
+            	
+            	 goodsCustomerUpdate("0",1,sqlGoodsResult.getString("goods_series_id"),sqlGoodsResult.getString("picture_id"),
+            			 sqlcustomerGoodsStatus,conn);
+            	 if(sqlGoodsResult.getInt("is_send")==0){
+                	 try {
+                		 mailCreator.createEmailWithTemplate("商品替换预报警", to,cc, from, customerGoodsHtml, dataMap);
+                	 } catch (SQLException e) {
+             			e.printStackTrace();
+             		}
+                 }
+             }
+			 if(count>1&&sqlGoodsResult.getInt("is_send")==1)
+             {  
+				 goodsCustomerUpdate("1",0,sqlGoodsResult.getString("goods_series_id"),sqlGoodsResult.getString("picture_id"),
+            			 sqlcustomerGoodsStatus,conn);
+             }
+			}
+			conn.commit();
+			}
+			catch (SQLException e) {
+				conn.rollback();
+				e.printStackTrace();
+			}
+		}
+		
+		
+	} catch (SQLException e) {
+		
+		e.printStackTrace();
+	}
+		finally {
+			closePs(sqlGoodsPrepare);
+		
+		}
+		
+	}
+	private void dealCountryMuseumGoods(Connection conn)  throws SQLException {
+		PreparedStatement sqlGoodsPrepare=null;
+		try{
+		String sqlGoods="select distinct cmto.goods_series_id,cmto.`type`,cmto.number,cmto.picture_id,cmto.is_send,country_museum_online.name  from country_museum_template_online cmto"
+                       +" left join country_museum_online on country_museum_online.picture_id=cmto.picture_id"
+                       +" where cmto.goods_series_id is not null";
+		String sqlGoodsCount="select sum(gi.front_inventory) from goods_inventory gi,goods g " 
+				            +" where g.series_id=?  and g.active=1 and g.status = 4 and gi.goods_id=g.id";
+		String sqlGoodsOnlineStatus="update country_museum_template_online set status=?,is_send=? where goods_series_id=? and picture_id=? and  number=? and type=?";
+		String sqlGoodsStatus="update country_museum_template set status=?,is_send=? where goods_series_id=? and picture_id=? and  number=? and type=?";
+		
+		
+		 sqlGoodsPrepare = conn.prepareStatement(sqlGoods);
+		ResultSet sqlGoodsResult = sqlGoodsPrepare.executeQuery();
+		while (sqlGoodsResult.next()) {
+			try {
+				MailCreator mailCreator= new MailCreator(conn);
+			dataMap.put("country", sqlGoodsResult.getString("name"));
+			dataMap.put("position", sqlGoodsResult.getString("number"));
+			int count=goodsCount(sqlGoodsResult.getString("goods_series_id"),sqlGoodsCount,conn);
+             if(count==1)
+             {  
+            	 dataMap.put("title", "预报警");
+            	 dataMap.put("Content", "库存过低，将要无法销售。需要运营人员尽快进行补充、替换");
+            	
+            	 if("goods".equals(sqlGoodsResult.getString("type")))
+            	 {   
+            	    dataMap.put("goods", "商品");
+            	}
+            	 else
+            	 { 
+            		 dataMap.put("goods", "预备商品");
+            	  }
+            	 goodsUpdate("0",1,sqlGoodsResult.getString("goods_series_id"),sqlGoodsResult.getString("picture_id"),
+            			 sqlGoodsResult.getString("number"),sqlGoodsResult.getString("type"),sqlGoodsOnlineStatus,conn);
+            	 goodsUpdate("0",1,sqlGoodsResult.getString("goods_series_id"),sqlGoodsResult.getString("picture_id"),
+            			 sqlGoodsResult.getString("number"),sqlGoodsResult.getString("type"),sqlGoodsStatus,conn);
+            	 if(sqlGoodsResult.getInt("is_send")==0){
+                	 try {
+                		 mailCreator.createEmailWithTemplate("商品替换预报警", to,cc, from, teplateHtml, dataMap);
+                	 } catch (SQLException e) {
+             			e.printStackTrace();
+             		}
+                 }
+             }
+             if(count==0)
+             { 
+            	 dataMap.put("title", "报警");
+            	 dataMap.put("Content", "已无货（下架）。商品位已替换为备用商品。请运营人员尽快对商品进行更新");
+            	 if("goods".equals(sqlGoodsResult.getString("type")))
+            	 {  
+            		 dataMap.put("goods", "商品");
+            	   }
+            	 else
+            	 {  
+            		 dataMap.put("goods", "预备商品");
+            	} 
+              	 goodsUpdate("1",1,sqlGoodsResult.getString("goods_series_id"),sqlGoodsResult.getString("picture_id"),
+          			 sqlGoodsResult.getString("number"),sqlGoodsResult.getString("type"),sqlGoodsOnlineStatus,conn);
+          	 goodsUpdate("1",1,sqlGoodsResult.getString("goods_series_id"),sqlGoodsResult.getString("picture_id"),
+          			 sqlGoodsResult.getString("number"),sqlGoodsResult.getString("type"),sqlGoodsStatus,conn);
+          	 if(sqlGoodsResult.getInt("is_send")==0){
+            	 try {
+            		 mailCreator.createEmailWithTemplate("商品替换报警", to,cc, from, teplateGoodsHtml, dataMap);
+            	 } catch (SQLException e) {
+         			e.printStackTrace();
+         		}
+             }
+             } 
+             if(count>1&&sqlGoodsResult.getInt("is_send")==1)
+             {
+            	 goodsUpdate("0",0,sqlGoodsResult.getString("goods_series_id"),sqlGoodsResult.getString("picture_id"),
+            			 sqlGoodsResult.getString("number"),sqlGoodsResult.getString("type"),sqlGoodsOnlineStatus,conn);
+            	 goodsUpdate("0",0,sqlGoodsResult.getString("goods_series_id"),sqlGoodsResult.getString("picture_id"),
+            			 sqlGoodsResult.getString("number"),sqlGoodsResult.getString("type"),sqlGoodsStatus,conn);
+             }
+         	conn.commit();
+			}catch (SQLException e) {
+				conn.rollback();
+				e.printStackTrace();
+			}
+		}
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+			finally {
+				closePs(sqlGoodsPrepare);
+			
+			}
+	}
+	
+	public void goodsCustomerUpdate(String status,int isSend,String goodsSeriesId,String pictureId,String sql,Connection conn) throws SQLException{
+		PreparedStatement sqlPrepare=null;
+		try{
+		 sqlPrepare = conn.prepareStatement(sql);
+		sqlPrepare.setString(1, status);
+		sqlPrepare.setInt(2, isSend);
+		sqlPrepare.setString(3, goodsSeriesId);
+		sqlPrepare.setString(4, pictureId);
+		sqlPrepare.execute();
+      } catch (SQLException e) {
+		
+		e.printStackTrace();
+	}
+		finally {
+			closePs(sqlPrepare);
+		
+		}
+	}
+	
+	
+	public void goodsUpdate(String status,int isSend,String goodsSeriesId,String pictureId,String number,String type,String sql,Connection conn) throws SQLException{
+		PreparedStatement sqlPrepare=null;
+		try{
+		 sqlPrepare = conn.prepareStatement(sql);
+		sqlPrepare.setString(1, status);
+		sqlPrepare.setInt(2, isSend);
+		sqlPrepare.setString(3, goodsSeriesId);
+		sqlPrepare.setString(4, pictureId);
+		sqlPrepare.setString(5, number);
+		sqlPrepare.setString(6, type);
+		sqlPrepare.execute();
+		  } catch (SQLException e) {
+				
+				e.printStackTrace();
+			}
+				finally {
+					closePs(sqlPrepare);
+				
+				}
+	}
+	
+	
+	public int goodsCount(String goodsSeriesId,String sqlGoodsCount,Connection conn) throws SQLException{
+		int count=0;
+		PreparedStatement sqlGoodsCountPrepare=null;
+		try{
+		 sqlGoodsCountPrepare = conn.prepareStatement(sqlGoodsCount);
+		sqlGoodsCountPrepare.setString(1, goodsSeriesId);
+		ResultSet sqlGoodsCountResult = sqlGoodsCountPrepare.executeQuery();
+		if(sqlGoodsCountResult.next()) {
+			count=sqlGoodsCountResult.getInt(1);
+		}
+	  } catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+			finally {
+				closePs(sqlGoodsCountPrepare);
+			
+			}
+		return count;
+	}
+	private boolean WithinTime(String startTime) {
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
+		String currentTime = formatter.format(new Date());
+		if(DateUtils.strToDatehhmmss(startTime)
+				.after(DateUtils.strToDatehhmmss(currentTime))){
+			return false;
+		}else{
+			return true;
+		}
+	}
+	public static void main(String[] args){
+		CountryMuseumJob countryMuseumJop=new CountryMuseumJob();
+		countryMuseumJop.run();
+		System.exit(0);
+		
+	}
+}

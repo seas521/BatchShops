@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.if2c.harald.dao.GoodsDao">
+  <resultMap id="BaseResultMap" type="com.if2c.harald.beans.Goods">
+    <id column="id" jdbcType="DECIMAL" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="category_id" jdbcType="DECIMAL" property="categoryId" />
+    <result column="series_id" jdbcType="DECIMAL" property="seriesId" />
+    <result column="brand_id" jdbcType="DECIMAL" property="brandId" />
+    <result column="country_id" jdbcType="DECIMAL" property="countryId" />
+    <result column="is_on_sale" jdbcType="DECIMAL" property="isOnSale" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="is_virtual" jdbcType="DECIMAL" property="isVirtual" />
+    <result column="base_price" jdbcType="DECIMAL" property="basePrice" />
+    <result column="manufacturer_id" jdbcType="DECIMAL" property="manufacturerId" />
+    <result column="on_sale_time" jdbcType="TIMESTAMP" property="onSaleTime" />
+    <result column="offline_time" jdbcType="TIMESTAMP" property="offlineTime" />
+    <result column="comment_num" jdbcType="DECIMAL" property="commentNum" />
+    <result column="sale_num" jdbcType="DECIMAL" property="saleNum" />
+    <result column="inventory" jdbcType="DECIMAL" property="inventory" />
+    <result column="shop_id" jdbcType="DECIMAL" property="shopId" />
+    <result column="item_num" jdbcType="VARCHAR" property="itemNum" />
+    <result column="img" jdbcType="VARCHAR" property="img" />
+    <result column="status" jdbcType="DECIMAL" property="status" />
+    <result column="active" jdbcType="DECIMAL" property="active" />
+    <result column="front_inventory" jdbcType="DECIMAL" property="frontInventory" />
+    <result column="virtual_inventory" jdbcType="DECIMAL" property="virtualInventory" />
+    <result column="reality_inventory" jdbcType="DECIMAL" property="realityInventory" />
+    <result column="identification" jdbcType="VARCHAR" property="identification" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, category_id, series_id, brand_id, country_id, is_on_sale, create_time, 
+    update_time, is_virtual, base_price, manufacturer_id, on_sale_time, offline_time, 
+    comment_num, sale_num, inventory, shop_id, item_num, img, status, active, identification
+  </sql>
+  <select id="getList" parameterType="com.if2c.harald.beans.query.GoodsQuery" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from goods
+    order by id desc 
+    limit #{startRow},#{endRow}
+  </select>
+
+    <!--<selectKey resultType="java.lang.Long"  order="AFTER"  keyProperty="id">-->
+        <!--select LAST_INSERT_ID()-->
+    <!--</selectKey>-->
+    <insert id="insertBatch" parameterType="list">
+
+    insert into goods (id, name, category_id,
+      series_id, brand_id, country_id,
+      is_on_sale, create_time, update_time,
+      is_virtual, base_price, manufacturer_id,
+      on_sale_time, offline_time, comment_num,
+      sale_num, inventory, shop_id,
+      item_num, img, status,
+      active, identification)
+    values <foreach collection="list" item="item" index="index" separator=",">
+        (#{item.id}, #{item.name}, #{item.categoryId},
+        #{item.seriesId}, #{item.brandId}, #{item.countryId},
+        #{item.isOnSale},,#{createTime},#{updateTime} ,
+        #{item.isVirtual}, #{item.basePrice}, #{item.manufacturerId},
+        #{item.onSaleTime}, #{item.offlineTime}, #{item.commentNum},
+        #{item.saleNum}, #{item.inventory}, #{item.shopId},
+        #{item.itemNum}, #{item.img}, #{item.status},
+        #{item.active}, #{item.identification})
+    </foreach>
+  </insert>
+    <!--<selectKey resultType="java.lang.Long"  order="AFTER"  keyProperty="id">-->
+        <!--select LAST_INSERT_ID()-->
+    <!--</selectKey>-->
+    <insert id="insert" parameterType="Goods">
+
+        insert into goods (id, name, category_id,
+        series_id, brand_id, country_id,
+        is_on_sale, create_time, update_time,
+        is_virtual, base_price, manufacturer_id,
+        on_sale_time, offline_time, comment_num,
+        sale_num, inventory, shop_id,
+        item_num, img, status,
+        active, identification)
+        values
+        ( #{id},#{name}, #{categoryId},
+        #{seriesId}, #{brandId}, #{countryId},
+        #{isOnSale},#{createTime},#{updateTime} ,
+        #{isVirtual}, #{basePrice}, #{manufacturerId},
+        #{onSaleTime}, #{offlineTime}, #{commentNum},
+        #{saleNum}, #{inventory}, #{shopId},
+        #{itemNum}, #{img}, #{status},
+        #{active}, #{identification})
+    </insert>
+</mapper>

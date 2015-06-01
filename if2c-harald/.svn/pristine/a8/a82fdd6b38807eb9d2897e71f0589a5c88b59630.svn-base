@@ -1,0 +1,62 @@
+package com.if2c.harald.migration;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.sql.SQLException;
+
+/**
+ * 迁移2C-V1R2B001 的品牌图片存储规则 到 图片服务器。
+ * 
+ * @author Qian Bing <br>
+ *         Created at 2013年10月9日
+ */
+public class TestMigrationTask extends SingleImageMigrationTask {
+	public TestMigrationTask() throws FileNotFoundException, IOException {
+		super();
+	}
+
+	public static void main(String[] args) throws FileNotFoundException,
+			IOException, SQLException {
+		TestMigrationTask task = new TestMigrationTask();
+		task.run();
+	}
+
+	public void run() throws SQLException {
+//		for (int i = 0; i < 10; i++) {
+//			String file = getTFSManager().saveFile("e:/ddd.jpg", null, null,
+//					false);
+//			System.out.println(file);
+//		}
+//		
+//		
+//		ByteOutputStream os = new ByteOutputStream();
+//		getTFSManager().fetchFileForce("T1ARbTB4CT1RCvBVdK", null, os);
+//		try {
+//			String rs = new String(os.getBytes(), "utf-8");
+//			System.out.println(rs);
+//		} catch (UnsupportedEncodingException e) {
+//			e.printStackTrace();
+//		}
+
+	}
+	public String uplodeImg(String img_url) throws SQLException {
+		
+		String file = getTFSManager().saveFile(img_url, null, null,
+					false);
+		return file;	
+	}
+
+	@Override
+	protected String getAllItemsSQL() {
+		return null;
+	}
+
+	@Override
+	protected String[] getDBColumns() {
+		return null;
+	}
+
+	protected String getSaveSql() {
+		return null;
+	}
+}

@@ -1,0 +1,18 @@
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <base target="_blank">
+</head>
+<body>
+<div style="margin-top:0px;vertical-align:top;width:80%;margin:0 auto;border:1px solid gray">
+<div style="text-align:center;background-color:red">
+<span style="color:yellow;font-size:40px">报警!!!!!</span>
+</div>
+<p style="height: 200px;font-size:20px">
+ 在首页<span style="color: red">${location}</span>模块下<span style="color: red">${position}</span>位的前台展示商品，该商品商品活动时间已经结束。商品位已替换为备用商品。请运营人员尽快对备用位商品进行更新。
+</p>
+</div>
+
+</body>
+</html>

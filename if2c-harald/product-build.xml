@@ -1,0 +1,7 @@
+<project name="if2c-harald" basedir="." default="deploy-remote">
+	<property file="product-build.properties" />
+	<import file="common-build.xml"/>
+	<target name="deploy-remote" depends="install" description="upload the jar to remote server">
+		    	<scp file="/home/f2c/if2c-harald.jar" todir="root:q!b6G1FULbJE@223.202.100.230:/usr/local/server" port="37815" trust="true"/>
+		</target>
+</project>

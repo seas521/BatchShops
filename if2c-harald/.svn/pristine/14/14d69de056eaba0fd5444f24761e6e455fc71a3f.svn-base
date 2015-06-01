@@ -1,0 +1,162 @@
+package com.if2c.harald.job;
+
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.http.client.ClientProtocolException;
+import org.quartz.DisallowConcurrentExecution;
+
+import com.if2c.harald.db.Config;
+import com.if2c.harald.db.DBConf;
+
+//@DBConf(url = "jdbc:mysql://10.0.16.115:3306/if2c", userName = "root", password = "123456")
+@DisallowConcurrentExecution
+public class SendCouponJob extends JobBase {
+	public boolean notifyClientForCoupon() {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		PreparedStatement couponPs = null;
+		ResultSet rs = null;
+		// 搜出那些用户需要提醒
+		Map<String, String> dataMap = new HashMap<String, String>();
+
+		String infosql = "select coupon.date_from,coupon.date_to,coupon.sum,coupon.id,coupon.total,coupon_batch.`type`,"
+				+ " base_user.USER_NAME,base_user.EMAIL,base_user.MOBILE"
+				+ " from coupon,coupon_batch,user,base_user "
+				+ " where coupon.is_send=0 and coupon_batch.id=coupon.batch_id and user.id = coupon.user_id and user.sso_id=base_user.ID;";
+		String sqltoSuccess = "update coupon set is_send = 1 where id = ?";
+		String phone;
+		String content = null;
+		String name;
+		String total;
+		String sum;
+		String durtime = "90";
+		String couponId;
+		String DateFrom;
+		String DateTo;
+		int type;
+		try {
+			conn = this.getConnection();
+			ps = conn.prepareStatement(infosql);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				boolean ok = false;
+				boolean emailOk = false;
+				DateFrom=rs.getDate("date_from").toString();
+				DateTo=rs.getDate("date_to").toString();
+				couponId = rs.getString("id");
+				phone = rs.getString("MOBILE");
+				type = rs.getInt("type");
+				name = rs.getString("USER_NAME");
+				total = rs.getString("total");
+				sum = rs.getString("sum");
+				total = rs.getString("total");
+				String email = rs.getString("EMAIL");
+				dataMap.put("dateFrom", DateFrom);
+				dataMap.put("dateTo", DateTo);
+				dataMap.put("user", name);
+				if (type == 0) {
+					dataMap.put("coupon", sum + "元代金券");
+					content = "您的IF2C账户中新增%20"
+							+ sum
+							+ "元代金券%20(在支付时直接使用，可立减现金)，有效期为"+DateFrom+"至"+DateTo+"。请尽快登陆IF2C网站%20http://www.if2c.com%20,或客户端%20http://www.if2c.com%20确认和使用。[IF2C]";
+				}
+				if (type == 1) {
+					dataMap.put("coupon", "满" + total + "减" + sum + "元券");
+					content = "您的IF2C账户中新增%20满"
+							+ total
+							+ "减"
+							+ sum
+							+ "元券(在支付时直接使用,可立减现金),有效期为"+DateFrom+"至"+DateTo+"。请尽快登陆IF2C网站%20http://www.if2c.com%20,或客户端%20http://www.if2c.com%20确认和使用。[IF2C]";
+				}
+				// 如果用户有手机，通过手机提醒
+//				ok = notifyBySMS(phone, conn, content);
+				ok=false;
+				// 如果用户有Email，通过邮件提醒
+				emailOk = notifyByEmail(email, dataMap, conn, ps);
+				//通知成功后设置Coupon表is_send=1
+				if (ok || emailOk) {
+					couponPs = conn.prepareStatement(sqltoSuccess);
+					couponPs.setString(1, couponId);
+					couponPs.execute();
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		finally {
+			clear(rs, ps, conn);
+		}
+		return true;
+	}
+	public void clear(ResultSet rs, PreparedStatement ps, Connection conn) {
+		if (null != rs) {
+			try {
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			rs = null;
+		}
+		if (null != ps) {
+			try {
+				ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			ps = null;
+		}
+		if (null != conn) {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			conn = null;
+		}
+	}
+
+	private boolean notifyBySMS(String phone, Connection conn, String content) {
+		try {
+			sendSMS(phone, content);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+
+	private boolean notifyByEmail(String email, Map<String, String> dataMap,
+			Connection conn, PreparedStatement ps) {
+		if (email != null && !email.isEmpty()) {
+			String insertsql = "INSERT INTO `email_queue` (`subject`, `to`, `from`, `body`) VALUES ('优惠券发送', ?, 'Noreply-service@haixuan.com', '"
+					+ Config.getTemplate("couponEmail.html", dataMap) + "');";
+			try {
+				ps = conn.prepareStatement(insertsql);
+				ps.setString(1, email);
+				ps.execute();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public void run() {
+		notifyClientForCoupon();
+	}
+	public static void main(String[] args){
+		SendCouponJob sendCouponJob=new SendCouponJob();
+		sendCouponJob.run();
+		System.exit(0);
+	}
+
+}
